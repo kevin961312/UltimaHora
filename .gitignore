@@ -4,7 +4,6 @@ __pycache__/
 *.pyo
 
 # Scraper outputs (solo en raíz, no en docs/)
-/*.xlsx
 /*.csv
 
 # Node.js

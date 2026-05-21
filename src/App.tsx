@@ -7,12 +7,12 @@ import { useNoticias } from './hooks/useNoticias';
 import styles from './App.module.css';
 
 export default function App() {
-  const { data, loading, error, updatedAt } = useNoticias();
+  const { data, loading, error, updatedAt, refetch } = useNoticias();
 
   return (
     <BrowserRouter basename="/UltimaHora">
       <div className={styles.layout}>
-        <Navbar updatedAt={updatedAt} loading={loading} />
+        <Navbar updatedAt={updatedAt} loading={loading} onRefresh={refetch} />
         <main className={styles.main}>
           <Routes>
             <Route path="/"      element={<HomePage   data={data} loading={loading} error={error} />} />

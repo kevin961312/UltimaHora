@@ -141,7 +141,7 @@ def to_excel(noticias: List[Dict], path: str) -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    archivo   = f"ultimahora.xlsx"
+    archivo = "ultimahora.xlsx"
 
     print(f"Iniciando scraping — {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
     noticias = run_all()
@@ -156,7 +156,14 @@ if __name__ == "__main__":
     print(f"{'═'*60}\n")
 
     ruta = to_excel(noticias, archivo)
-    print(f"Excel guardado en: {os.path.abspath(ruta)}\n")
+    print(f"Excel guardado en: {os.path.abspath(ruta)}")
+
+    # Copiar a public/ para que el dev server lo sirva sin paso extra
+    public_path = os.path.join(os.path.dirname(__file__), "public", "ultimahora.xlsx")
+    if os.path.isdir(os.path.dirname(public_path)):
+        import shutil
+        shutil.copy2(archivo, public_path)
+        print(f"Copiado a:        {os.path.abspath(public_path)}\n")
 
     # Vista previa en consola (primeras 20)
     print(f"{'FECHA':<22}  {'FUENTE':<28}  TITULAR")

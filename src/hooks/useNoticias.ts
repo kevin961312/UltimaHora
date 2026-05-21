@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
 
 export interface Noticia {
@@ -20,13 +20,17 @@ export function toSlug(name: string): string {
     .replace(/^-|-$/g, '');
 }
 
+const POLL_MS = 30 * 60 * 1000; // 30 minutos, igual que el workflow
+
 export function useNoticias() {
   const [data,      setData]      = useState<NoticiasMap>({});
   const [loading,   setLoading]   = useState(true);
   const [error,     setError]     = useState<string | null>(null);
   const [updatedAt, setUpdatedAt] = useState<string>('');
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
+    setLoading(true);
+    setError(null);
     const base = import.meta.env.BASE_URL;
     fetch(`${base}ultimahora.xlsx?t=${Date.now()}`)
       .then(res => {
@@ -60,5 +64,11 @@ export function useNoticias() {
       .finally(() => setLoading(false));
   }, []);
 
-  return { data, loading, error, updatedAt };
+  useEffect(() => {
+    fetchData();
+    const id = setInterval(fetchData, POLL_MS);
+    return () => clearInterval(id);
+  }, [fetchData]);
+
+  return { data, loading, error, updatedAt, refetch: fetchData };
 }

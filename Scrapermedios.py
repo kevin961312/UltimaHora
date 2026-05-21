@@ -128,7 +128,10 @@ def _parse_time_only(s: str) -> Optional[datetime]:
         hh = 0
     today = datetime.now().date()
     try:
-        return datetime(today.year, today.month, today.day, hh, mm, ss)
+        dt = datetime(today.year, today.month, today.day, hh, mm, ss)
+        if dt > datetime.now():          # hora futura → artículo de ayer
+            dt -= timedelta(days=1)
+        return dt
     except ValueError:
         return None
 
@@ -235,10 +238,9 @@ def _parse_dt(s: str) -> Optional[datetime]:
 def _fmt_dt(dt: Optional[datetime]) -> str:
     if not dt:
         return ""
-    return (
-        f"{dt.day:02d}/{dt.month:02d}/{dt.year}"
-        f"T{dt.hour:02d}:{dt.minute:02d}:{dt.second:02d}"
-    )
+    h12 = dt.hour % 12 or 12
+    meridiem = "a. m." if dt.hour < 12 else "p. m."
+    return f"{dt.day:02d}/{dt.month:02d}/{dt.year} {h12:02d}:{dt.minute:02d} {meridiem}"
 
 
 def _item(titulo: str, url: str, medio: str,
@@ -305,9 +307,26 @@ def scrape_elespectador() -> List[Dict]:
         if not titulo or len(titulo) < 8:
             continue
 
-        # Hora: "07:22 p. m." en p.Card-Datetime
+        # Hora: El Espectador publica en UTC → restar 5 h para obtener COT
         dt_tag = card.select_one(".Card-Datetime")
-        dt = _parse_dt(dt_tag.get_text(strip=True)) if dt_tag else None
+        dt = None
+        if dt_tag:
+            raw = dt_tag.get_text(strip=True)
+            mt = re.match(r"(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(a\.?\s*m\.?|p\.?\s*m\.?)?$", raw, re.I)
+            if mt:
+                hh = int(mt.group(1))
+                mn = int(mt.group(2))
+                ss = int(mt.group(3) or 0)
+                mer = (mt.group(4) or "").lower().replace(" ", "").replace(".", "")
+                if mer == "pm" and hh < 12:
+                    hh += 12
+                elif mer == "am" and hh == 12:
+                    hh = 0
+                today = datetime.now().date()
+                try:
+                    dt = datetime(today.year, today.month, today.day, hh, mn, ss) - timedelta(hours=5)
+                except ValueError:
+                    pass
 
         results.append(_item(titulo, href, medio, dt=dt))
 
