@@ -139,12 +139,24 @@ def _parse_dt(s: str) -> Optional[datetime]:
         return None
     s = s.strip()
 
-    # ISO 8601 con hora: 2026-05-21T14:30:00Z o 2026-05-21T14:30:00-05:00
-    m = re.search(r"(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::(\d{2}))?", s)
+    # ISO 8601 con hora y offset opcional: 2026-05-21T17:26:32+02:00 / ...Z / sin offset
+    m = re.search(
+        r"(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::(\d{2}))?(?P<tz>[+-]\d{2}:\d{2}|Z)?",
+        s,
+    )
     if m:
         try:
-            return datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)),
-                            int(m.group(4)), int(m.group(5)), int(m.group(6) or 0))
+            dt = datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)),
+                          int(m.group(4)), int(m.group(5)), int(m.group(6) or 0))
+            tz_str = m.group("tz")
+            if tz_str:
+                if tz_str == "Z":
+                    dt = dt - timedelta(hours=5)          # UTC → Colombia (UTC-5)
+                else:
+                    sign = 1 if tz_str[0] == "+" else -1
+                    h, mn = map(int, tz_str[1:].split(":"))
+                    dt = dt - timedelta(hours=sign * h, minutes=sign * mn) - timedelta(hours=5)
+            return dt
         except ValueError:
             pass
 
