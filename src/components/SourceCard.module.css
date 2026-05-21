@@ -1,0 +1,130 @@
+.card {
+  background: var(--card-bg);
+  border: 1px solid color-mix(in srgb, var(--card-accent) 25%, transparent);
+  border-top: 3px solid var(--card-accent);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 6px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.2s, transform 0.2s;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem 0.6rem;
+}
+
+.title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--card-accent);
+  line-height: 1.3;
+  flex: 1;
+}
+
+.badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.18rem 0.5rem;
+  border-radius: 99px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.oficial {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.medio {
+  background: #fdf4ff;
+  color: #a21caf;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--card-accent) 12%, transparent);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.fecha {
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.link {
+  font-size: 0.8rem;
+  color: var(--color-text);
+  line-height: 1.4;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.link:hover {
+  color: var(--card-accent);
+}
+
+.extIcon {
+  flex-shrink: 0;
+  opacity: 0.4;
+  position: relative;
+  top: 1px;
+}
+
+.footer {
+  padding: 0.6rem 1rem 0.75rem;
+  border-top: 1px solid color-mix(in srgb, var(--card-accent) 15%, transparent);
+  margin-top: 0.25rem;
+}
+
+.verMas {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--card-accent);
+  padding: 0;
+  transition: opacity 0.15s;
+}
+
+.verMas:hover {
+  opacity: 0.7;
+}
+
+.empty {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  padding: 0.75rem 1rem 1rem;
+  font-style: italic;
+}

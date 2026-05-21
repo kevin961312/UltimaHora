@@ -1,0 +1,131 @@
+.page {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 3rem;
+}
+
+.pageHeader {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: 1px solid var(--color-lilac-border);
+  border-radius: 8px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--color-purple-mid);
+  cursor: pointer;
+  transition: background 0.15s;
+  width: fit-content;
+}
+
+.backBtn:hover {
+  background: var(--color-lilac-light);
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-purple-deep);
+}
+
+.badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+}
+
+.oficial {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.medio {
+  background: #fdf4ff;
+  color: #a21caf;
+}
+
+.count {
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  transition: background 0.12s;
+}
+
+.item:hover {
+  background: var(--color-lilac-light);
+}
+
+.item + .item {
+  border-top: 1px solid var(--color-lilac-border);
+}
+
+.fecha {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.link {
+  font-size: 0.92rem;
+  color: var(--color-text);
+  line-height: 1.45;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.link:hover {
+  color: var(--color-purple-mid);
+}
+
+.extIcon {
+  flex-shrink: 0;
+  opacity: 0.45;
+  position: relative;
+  top: 1px;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 40vh;
+  color: var(--color-text-muted);
+}

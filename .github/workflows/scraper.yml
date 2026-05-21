@@ -1,0 +1,50 @@
+name: Ejecutar Scraper de Noticias
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  scrape-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias Python
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 lxml pandas openpyxl
+
+      - name: Ejecutar Scraper
+        run: python run_todo.py
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias Node
+        run: npm install
+
+      - name: Copiar Excel a public/
+        run: cp ultimahora.xlsx public/ultimahora.xlsx
+
+      - name: Construir aplicación web
+        run: npm run build
+
+      - name: Guardar cambios en GitHub
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add docs/
+          git diff --staged --quiet || (git commit -m "🤖 Noticias actualizadas $(date +'%d/%m/%Y %H:%M')" && git push)

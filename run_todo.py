@@ -141,8 +141,7 @@ def to_excel(noticias: List[Dict], path: str) -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    fecha_hoy = datetime.now().strftime("%Y%m%d")
-    archivo   = f"noticias_todo_{fecha_hoy}.xlsx"
+    archivo   = f"ultimahora.xlsx"
 
     print(f"Iniciando scraping — {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
     noticias = run_all()

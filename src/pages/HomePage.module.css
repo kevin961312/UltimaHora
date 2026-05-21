@@ -1,0 +1,84 @@
+.page {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 3rem;
+}
+
+.pageHeader {
+  margin-bottom: 1.25rem;
+}
+
+.pageTitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-purple-deep);
+}
+
+.summary {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-lilac-light) 25%,
+    #e8e0ff 50%,
+    var(--color-lilac-light) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 12px;
+  height: 220px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
+  padding: 2rem;
+}
+
+.errorCard {
+  background: #fff;
+  border: 1px solid var(--color-lilac-border);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 480px;
+  text-align: center;
+}
+
+.errorCard h2 {
+  color: var(--color-purple-deep);
+  margin-bottom: 0.5rem;
+}
+
+.errorCard p {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.hint {
+  margin-top: 0.75rem !important;
+  font-size: 0.82rem !important;
+  color: var(--color-purple-soft) !important;
+}
+
+.empty {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
