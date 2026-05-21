@@ -142,9 +142,9 @@ def _parse_dt(s: str) -> Optional[datetime]:
         return None
     s = s.strip()
 
-    # ISO 8601 con hora y offset opcional: 2026-05-21T17:26:32+02:00 / ...Z / sin offset
+    # ISO 8601 con hora y offset opcional: 2026-05-21T17:26:32+02:00 / ...Z / ...000Z
     m = re.search(
-        r"(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::(\d{2}))?(?P<tz>[+-]\d{2}:\d{2}|Z)?",
+        r"(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?(?P<tz>[+-]\d{2}:\d{2}|Z)?",
         s,
     )
     if m:
@@ -191,6 +191,32 @@ def _parse_dt(s: str) -> Optional[datetime]:
             except ValueError:
                 pass
 
+    # RFC 2822 pubDate: Thu, 21 May 2026 18:43:36 +0000  ← ANTES de dd MONTH yyyy
+    m = re.search(
+        r"\w+,\s+(\d{1,2})\s+(\w+)\s+(\d{4})\s+(\d{2}):(\d{2})(?::(\d{2}))?(?:\s+([+-]\d{2}:?\d{2}|UTC|GMT|Z))?",
+        s,
+    )
+    if m:
+        month = _MESES.get(m.group(2).lower())
+        if month:
+            try:
+                dt = datetime(int(m.group(3)), month, int(m.group(1)),
+                              int(m.group(4)), int(m.group(5)), int(m.group(6) or 0))
+                tz_str = (m.group(7) or "").strip()
+                if tz_str in ("UTC", "GMT", "Z", "+0000", "+00:00"):
+                    dt = dt - timedelta(hours=5)                  # UTC → COT
+                elif re.match(r"[+-]\d{4}$", tz_str):
+                    sign = 1 if tz_str[0] == "+" else -1
+                    h, mn = int(tz_str[1:3]), int(tz_str[3:5])
+                    dt = dt - timedelta(hours=sign * h, minutes=sign * mn) - timedelta(hours=5)
+                elif re.match(r"[+-]\d{2}:\d{2}$", tz_str):
+                    sign = 1 if tz_str[0] == "+" else -1
+                    h, mn = map(int, tz_str[1:].split(":"))
+                    dt = dt - timedelta(hours=sign * h, minutes=sign * mn) - timedelta(hours=5)
+                return dt
+            except ValueError:
+                pass
+
     # dd MONTH yyyy [HH:MM]
     m = re.search(r"(\d{1,2})\s+(\w+)\s+(\d{4})(?:.*?(\d{1,2}):(\d{2}))?", s, re.I)
     if m:
@@ -210,19 +236,6 @@ def _parse_dt(s: str) -> Optional[datetime]:
             try:
                 return datetime(int(m.group(3)), month, int(m.group(2)),
                                 int(m.group(4) or 0), int(m.group(5) or 0))
-            except ValueError:
-                pass
-
-    # RFC 2822 pubDate: Thu, 21 May 2026 18:43:36 +0000
-    m = re.search(
-        r"\w+,\s+(\d{1,2})\s+(\w+)\s+(\d{4})\s+(\d{2}):(\d{2})(?::(\d{2}))?", s
-    )
-    if m:
-        month = _MESES.get(m.group(2).lower())
-        if month:
-            try:
-                return datetime(int(m.group(3)), month, int(m.group(1)),
-                                int(m.group(4)), int(m.group(5)), int(m.group(6) or 0))
             except ValueError:
                 pass
 

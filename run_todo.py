@@ -158,12 +158,13 @@ if __name__ == "__main__":
     ruta = to_excel(noticias, archivo)
     print(f"Excel guardado en: {os.path.abspath(ruta)}")
 
-    # Copiar a public/ para que el dev server lo sirva sin paso extra
-    public_path = os.path.join(os.path.dirname(__file__), "public", "ultimahora.xlsx")
-    if os.path.isdir(os.path.dirname(public_path)):
-        import shutil
-        shutil.copy2(archivo, public_path)
-        print(f"Copiado a:        {os.path.abspath(public_path)}\n")
+    import shutil
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    for destino in ("public", "docs"):
+        dest_path = os.path.join(base_dir, destino, "ultimahora.xlsx")
+        if os.path.isdir(os.path.dirname(dest_path)):
+            shutil.copy2(archivo, dest_path)
+            print(f"Copiado a:        {dest_path}")
 
     # Vista previa en consola (primeras 20)
     print(f"{'FECHA':<22}  {'FUENTE':<28}  TITULAR")
