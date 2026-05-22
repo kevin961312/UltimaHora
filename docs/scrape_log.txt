@@ -1,0 +1,61 @@
+Iniciando scraping — 21/05/2026 19:41:52
+
+────────────────────────────────────────────────────────────
+  ENTIDADES OFICIALES (21 scrapers)
+────────────────────────────────────────────────────────────
+  [i] Minhacienda: protegido por anti-bot (Radware), sin resultados.
+  [i] Minjusticia: SharePoint con contenido dinámico (JS), sin resultados.
+  [i] Mindefensa: requiere JavaScript, sin resultados.
+  [i] Minsalud: SharePoint con contenido dinámico, sin resultados.
+  [✓] MinHacienda: 0 noticias
+  [✓] MinSalud: 0 noticias
+  [✓] MinDefensa: 0 noticias
+  [✓] MinJusticia: 0 noticias
+  [✓] MinEnergía: 1 noticias
+  [✓] Cancillería: 1 noticias
+  [✓] MinIgualdad: 0 noticias
+  [i] Mincultura: SharePoint con muro de autenticación, sin resultados.
+  [✓] MinInterior: 1 noticias
+  [✓] MinCultura: 0 noticias
+  [✓] MinEducación: 4 noticias
+  [✓] MinCIT: 2 noticias
+  [✓] MinAmbiente: 0 noticias
+  [✓] MinTIC: 4 noticias
+  [✓] SuperSalud: 2 noticias
+  [✓] MinCiencias: 1 noticias
+  [✓] MinDeporte: 0 noticias
+  [✓] MinTrabajo: 0 noticias
+  [✓] Procuraduría: 4 noticias
+  [✓] MinVivienda: 1 noticias
+  [✓] MinTransporte: 1 noticias
+  [✓] Fiscalía: 9 noticias
+
+────────────────────────────────────────────────────────────
+  MEDIOS DE COMUNICACIÓN (13 scrapers)
+────────────────────────────────────────────────────────────
+  [✓] NoticiasCaracol: 26 noticias
+  [✓] ElUniversal: 25 noticias
+  [i] Teleantioquia: renderizado por JS, sin resultados estáticos.
+  [✓] Teleantioquia: 0 noticias
+  [✓] ElPaís: 30 noticias
+  [✓] NoticiasRCN: 10 noticias
+  [✓] ElEspectador: 10 noticias
+  [✓] Semana: 30 noticias
+  [✓] BluRadio: 12 noticias
+  [✓] ElColombiano: 30 noticias
+  [✓] Vanguardia: 18 noticias
+  [✓] CambioColombia: 16 noticias
+  [✓] LaSillaVacía: 10 noticias
+  [✓] CanalTrece: 30 noticias
+
+════════════════════════════════════════════════════════════
+  Entidades oficiales   :   31 noticias
+  Medios de comunicación:  247 noticias
+  TOTAL                 :  278 noticias
+════════════════════════════════════════════════════════════
+
+Excel guardado en: /Users/KEPINEDA/Downloads/Ultimahora/ultimahora.xlsx
+Copiado a:        /Users/KEPINEDA/Downloads/Ultimahora/public/ultimahora.xlsx
+Copiado a:        /Users/KEPINEDA/Downloads/Ultimahora/docs/ultimahora.xlsx
+
+Fin — 21/05/2026 19:41:59

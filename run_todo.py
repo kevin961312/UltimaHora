@@ -6,12 +6,53 @@ Columnas: Fecha | Tipo | Fuente | Titular | URL
 """
 
 import os
+import sys
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Dict
 
 from scrapers import SCRAPERS as GOV_SCRAPERS
 from Scrapermedios import SCRAPERS as MEDIA_SCRAPERS, _parse_dt
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Logger — duplica stdout al archivo de log
+# ─────────────────────────────────────────────────────────────────────────────
+
+class _Tee:
+    """Redirige stdout a terminal + archivo de log simultáneamente."""
+    def __init__(self, file):
+        self._file = file
+        self._stdout = sys.stdout
+
+    def write(self, data):
+        self._stdout.write(data)
+        self._file.write(data)
+
+    def flush(self):
+        self._stdout.flush()
+        self._file.flush()
+
+    def fileno(self):
+        return self._stdout.fileno()
+
+
+_log_file = None
+LOG_PATH = "scrape_log.txt"
+
+
+def _start_log():
+    global _log_file
+    _log_file = open(LOG_PATH, "w", encoding="utf-8")
+    sys.stdout = _Tee(_log_file)
+
+
+def _stop_log():
+    global _log_file
+    sys.stdout = sys.stdout._stdout  # restaurar stdout original
+    if _log_file:
+        _log_file.close()
+        _log_file = None
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -160,27 +201,41 @@ def to_excel(noticias: List[Dict], path: str) -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    archivo = "ultimahora.xlsx"
-
-    print(f"Iniciando scraping — {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-    noticias = run_all()
-
-    total_gov   = sum(1 for n in noticias if n["tipo"] == "Entidad Oficial")
-    total_media = sum(1 for n in noticias if n["tipo"] == "Medio de Comunicación")
-
-    print(f"\n{'═'*60}")
-    print(f"  Entidades oficiales : {total_gov:>4} noticias")
-    print(f"  Medios de comunicación: {total_media:>4} noticias")
-    print(f"  TOTAL               : {len(noticias):>4} noticias")
-    print(f"{'═'*60}\n")
-
-    ruta = to_excel(noticias, archivo)
-    print(f"Excel guardado en: {os.path.abspath(ruta)}")
-
     import shutil
+
+    archivo  = "ultimahora.xlsx"
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    for destino in ("public", "docs"):
-        dest_path = os.path.join(base_dir, destino, "ultimahora.xlsx")
-        if os.path.isdir(os.path.dirname(dest_path)):
-            shutil.copy2(archivo, dest_path)
-            print(f"Copiado a:        {dest_path}")
+
+    _start_log()
+    try:
+        print(f"Iniciando scraping — {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        noticias = run_all()
+
+        total_gov   = sum(1 for n in noticias if n["tipo"] == "Entidad Oficial")
+        total_media = sum(1 for n in noticias if n["tipo"] == "Medio de Comunicación")
+
+        print(f"\n{'═'*60}")
+        print(f"  Entidades oficiales   : {total_gov:>4} noticias")
+        print(f"  Medios de comunicación: {total_media:>4} noticias")
+        print(f"  TOTAL                 : {len(noticias):>4} noticias")
+        print(f"{'═'*60}\n")
+
+        ruta = to_excel(noticias, archivo)
+        print(f"Excel guardado en: {os.path.abspath(ruta)}")
+
+        for destino in ("public", "docs"):
+            dest_path = os.path.join(base_dir, destino, "ultimahora.xlsx")
+            if os.path.isdir(os.path.dirname(dest_path)):
+                shutil.copy2(archivo, dest_path)
+                print(f"Copiado a:        {dest_path}")
+
+        print(f"\nFin — {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+    finally:
+        _stop_log()
+
+        # Copiar log a public/ y docs/ para que sea accesible en la página
+        for destino in ("public", "docs"):
+            dest_path = os.path.join(base_dir, destino, "scrape_log.txt")
+            if os.path.isdir(os.path.dirname(dest_path)):
+                shutil.copy2(LOG_PATH, dest_path)
+                print(f"Log copiado a:    {dest_path}")
