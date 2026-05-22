@@ -6,6 +6,7 @@ run_all() ejecuta todos en paralelo y ordena de más reciente a más antigua.
 """
 
 import re
+import random
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Optional, List, Dict
@@ -16,13 +17,177 @@ import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/124.0.0.0 Safari/537.36"
-    )
-}
+_BROWSER_PROFILES = [
+    # Chrome 124 — Mac
+    {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Language": "es-CO,es;q=0.9,en;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+    },
+    # Chrome 124 — Windows
+    {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Language": "es-CO,es;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+    },
+    # Firefox 125 — Windows
+    {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "es-CO,es;q=0.8,en-US;q=0.5,en;q=0.3",
+        "Accept-Encoding": "gzip, deflate, br",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        "TE": "trailers",
+    },
+    # Edge 124 — Windows
+    {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Language": "es-CO,es;q=0.9,en;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+    },
+    # Safari 17 — Mac
+    {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "es-CO,es;q=0.9,en;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+    },
+    # Opera 109 — Windows
+    {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 OPR/109.0.0.0",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Language": "es-CO,es;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+    },
+    # Opera 109 — Mac
+    {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 OPR/109.0.0.0",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Language": "es-CO,es;q=0.9,en;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+    },
+    # Brave 1.65 — Windows (se presenta como Chrome, por diseño anti-fingerprint)
+    {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9,es-CO;q=0.8,es;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+    },
+    # Brave 1.65 — Mac (se presenta como Chrome, por diseño anti-fingerprint)
+    {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9,es;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+    },
+    # Chrome 124 — Ubuntu Linux
+    {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Language": "es-CO,es;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+    },
+    # Firefox 125 — Ubuntu Linux
+    {
+        "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "es-CO,es;q=0.8,en-US;q=0.5,en;q=0.3",
+        "Accept-Encoding": "gzip, deflate, br",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        "TE": "trailers",
+    },
+    # Chromium 123 — Ubuntu Linux
+    {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Language": "es-CO,es;q=0.9,en;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+    },
+]
+
+
+def _random_headers() -> dict:
+    return dict(random.choice(_BROWSER_PROFILES))
 
 _MESES = {
     "enero": 1, "febrero": 2, "marzo": 3, "abril": 4,
@@ -47,8 +212,26 @@ _WORD_NUMS = {
 
 def _get(url: str, verify=True, timeout=15) -> Optional[requests.Response]:
     try:
-        r = requests.get(url, headers=HEADERS, timeout=timeout, verify=verify,
+        r = requests.get(url, headers=_random_headers(), timeout=timeout, verify=verify,
                          allow_redirects=True)
+        r.raise_for_status()
+        return r
+    except Exception as e:
+        print(f"  [!] {url[:70]} → {e}")
+        return None
+
+
+_JSON_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept": "application/json",
+    "Accept-Language": "es-CO,es;q=0.9",
+    "Accept-Encoding": "gzip, deflate",   # sin brotli — requests no lo descomprime nativamente
+}
+
+def _get_json(url: str, timeout=15) -> Optional[requests.Response]:
+    """GET para endpoints JSON; evita brotli que requests no decodifica."""
+    try:
+        r = requests.get(url, headers=_JSON_HEADERS, timeout=timeout, allow_redirects=True)
         r.raise_for_status()
         return r
     except Exception as e:
@@ -735,60 +918,32 @@ def scrape_semana() -> List[Dict]:
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 12. La Silla Vacía
-#     URL: https://www.lasillavacia.com/
-#     Contenedor: wp-block-column.home-en-vivo-desktop
-#     Items: time.entry-date.published[datetime]  (WordPress)
+#     URL: https://www.lasillavacia.com/category/en-vivo/
+#     API: WP REST /wp/v2/posts?categories=4932 (en-vivo, categoría ID fija)
+#     La página renderiza con JS; la API JSON devuelve título, link y fecha COT.
 # ─────────────────────────────────────────────────────────────────────────────
 def scrape_lasillavacia() -> List[Dict]:
     medio = "La Silla Vacía"
-    base  = "https://www.lasillavacia.com"
-    soup  = _soup(base)
-    if not soup:
+    api   = ("https://www.lasillavacia.com/wp-json/wp/v2/posts"
+             "?categories=4932&per_page=20&orderby=date&order=desc")
+    r = _get_json(api)
+    if not r:
         return []
 
-    # Buscar el contenedor live
-    container = None
-    for tag in soup.find_all(class_=True):
-        if "home-en-vivo-desktop" in " ".join(tag.get("class", [])):
-            container = tag
-            break
-    if not container:
-        # Fallback: buscar por home-en-vivo
-        for tag in soup.find_all(class_=True):
-            if "home-en-vivo" in " ".join(tag.get("class", [])):
-                container = tag
-                break
-    if not container:
-        container = soup
+    try:
+        posts = r.json()
+    except Exception:
+        return []
 
-    results, seen = [], set()
-    # Cada noticia tiene un <a href> directo a la noticia (no la categoría)
-    for a in container.find_all("a", href=True):
-        href = _abs_url(a.get("href", ""), base)
-        # Filtrar: los artículos tienen rutas tipo /silla-llena/... o /en-vivo/...
-        if not href or href in seen or href.rstrip("/") == base:
-            continue
-        # Ignorar links de categorías que son solo /categoria/
-        if re.match(r"https://www\.lasillavacia\.com/category/", href):
-            continue
-        seen.add(href)
-
-        # Buscar heading en el contexto inmediato del link
-        titulo_tag = a.select_one("h2, h3, h4") or a.find_parent(
-            lambda t: t.name in ("article", "div", "li") and t.select_one("h2,h3,h4")
-        )
-        if titulo_tag and hasattr(titulo_tag, "select_one"):
-            titulo_tag = titulo_tag.select_one("h2, h3, h4")
-        titulo = titulo_tag.get_text(strip=True) if titulo_tag else a.get_text(strip=True)
+    results = []
+    for p in posts:
+        raw_title = p.get("title", {}).get("rendered", "")
+        titulo = BeautifulSoup(raw_title, "html.parser").get_text(strip=True)
         if not titulo or len(titulo) < 8:
             continue
-
-        # Buscar time[datetime] en el contenedor padre
-        parent = a.find_parent(["article", "div", "li"])
-        time_tag = parent.select_one("time[datetime]") if parent else None
-        dt = _dt_from_time_tag(time_tag)
-
-        results.append(_item(titulo, href, medio, dt=dt))
+        url = p.get("link", "")
+        dt  = _parse_dt(p.get("date", ""))   # "2026-05-22T08:19:10" → COT local
+        results.append(_item(titulo, url, medio, dt=dt))
 
     return results[:20]
 
