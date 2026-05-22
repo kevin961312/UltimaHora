@@ -42,6 +42,26 @@ def _run(scrapers, tipo_label: str, fuente_field: str, max_workers: int) -> List
     return all_items
 
 
+def _block_sort(items: List[Dict]) -> List[Dict]:
+    """Agrupa por fuente y ordena los bloques por la noticia más reciente de cada fuente."""
+    from collections import defaultdict
+    groups: dict = defaultdict(list)
+    for item in items:
+        groups[item["fuente"]].append(item)
+
+    # Ordenar artículos dentro de cada bloque (más reciente primero)
+    for fuente in groups:
+        groups[fuente].sort(key=lambda x: x["_dt"], reverse=True)
+
+    # Ordenar bloques por el artículo más reciente de cada fuente
+    sorted_fuentes = sorted(groups.keys(), key=lambda f: groups[f][0]["_dt"], reverse=True)
+
+    result = []
+    for fuente in sorted_fuentes:
+        result.extend(groups[fuente])
+    return result
+
+
 def run_all() -> List[Dict]:
     print(f"\n{'─'*60}")
     print(f"  ENTIDADES OFICIALES ({len(GOV_SCRAPERS)} scrapers)")
@@ -53,8 +73,7 @@ def run_all() -> List[Dict]:
     print(f"{'─'*60}")
     media = _run(MEDIA_SCRAPERS, "Medio de Comunicación", "medio",      max_workers=6)
 
-    combined = gov + media
-    combined.sort(key=lambda x: x["_dt"], reverse=True)
+    combined = _block_sort(gov + media)
     for item in combined:
         item.pop("_dt", None)
     return combined
@@ -165,10 +184,3 @@ if __name__ == "__main__":
         if os.path.isdir(os.path.dirname(dest_path)):
             shutil.copy2(archivo, dest_path)
             print(f"Copiado a:        {dest_path}")
-
-    # Vista previa en consola (primeras 20)
-    print(f"{'FECHA':<22}  {'FUENTE':<28}  TITULAR")
-    print("─" * 100)
-    for n in noticias[:20]:
-        print(f"{n['fecha']:<22}  {n['fuente']:<28}  {n['titulo'][:50]}")
-        print(f"  → {n['url']}")

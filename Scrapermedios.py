@@ -78,7 +78,7 @@ def _abs_url(href: str, base: str) -> str:
 
 def _parse_relative(s: str) -> Optional[datetime]:
     """Convierte 'hace 5 minutos', 'hace 2 horas', 'hace 57 min', etc. a datetime."""
-    now = datetime.now()
+    now = datetime.utcnow() - timedelta(hours=5)  # siempre COT (UTC-5)
     sl = s.lower().strip()
 
     if re.search(r"hace\s+(un\s+)?(momento|instante|un?\s+segundo)", sl):
@@ -506,37 +506,40 @@ def scrape_eluniversal() -> List[Dict]:
 # ─────────────────────────────────────────────────────────────────────────────
 # 6. Noticias Caracol
 #    URL: https://www.noticiascaracol.com/noticias
-#    Items: div.List-items-item  →  ps-promo  →  a[aria-label] (título en aria-label)
-#    Fecha: no disponible en HTML estático (JS)
+#    Fuente: JSON-LD NewsArticle (30 artículos con datePublished en COT -05:00)
+#    Los timestamps del DOM son renderizados por JS y no están en HTML estático.
 # ─────────────────────────────────────────────────────────────────────────────
 def scrape_noticiascaracol() -> List[Dict]:
+    import json as _json
     medio = "Noticias Caracol"
     base  = "https://www.noticiascaracol.com"
-    soup  = _soup(f"{base}/noticias")
-    if not soup:
+    r     = _get(f"{base}/noticias")
+    if not r:
         return []
 
+    soup = BeautifulSoup(r.content, "html.parser")
     results, seen = [], set()
-    for item in soup.find_all("div", class_=re.compile(r"List-items-item")):
-        # Dentro hay ps-promo con a[aria-label]
-        a = item.select_one("a[aria-label][href]")
-        if not a:
-            a = item.select_one("a[href]")
-        if not a:
-            continue
-        href = _abs_url(a.get("href", ""), base)
-        if not href or href in seen:
-            continue
-        seen.add(href)
 
-        titulo = a.get("aria-label", "") or a.get("title", "") or a.get_text(strip=True)
-        if not titulo or len(titulo) < 8:
-            continue
+    hoy_cot = (datetime.utcnow() - timedelta(hours=5)).date()
 
-        time_tag = item.select_one("time[datetime]")
-        dt = _dt_from_time_tag(time_tag)
-
-        results.append(_item(titulo, href, medio, dt=dt))
+    for script in soup.find_all("script", type="application/ld+json"):
+        try:
+            data = _json.loads(script.string or "")
+            if not isinstance(data, dict) or data.get("@type") != "NewsArticle":
+                continue
+            titulo = (data.get("headline") or "").strip()
+            url = (data.get("url") or
+                   (data.get("mainEntityOfPage") or {}).get("@id") or "")
+            fecha_str = data.get("datePublished", "")
+            if not titulo or len(titulo) < 8 or not url or url in seen:
+                continue
+            dt = _parse_dt(fecha_str)
+            if not dt or dt.date() != hoy_cot:   # solo artículos de hoy en COT
+                continue
+            seen.add(url)
+            results.append(_item(titulo, url, medio, dt=dt))
+        except Exception:
+            pass
 
     return results[:30]
 
@@ -569,15 +572,18 @@ def scrape_noticiasrcn() -> List[Dict]:
         if not titulo or len(titulo) < 8:
             continue
 
-        time_tag = post.select_one("time[datetime]")
-        dt = _dt_from_time_tag(time_tag)
+        # post-time :created = Unix timestamp en ms (COT = UTC-5)
+        post_time = post.select_one("post-time[\\:created]")
+        dt = None
+        if post_time:
+            try:
+                ts_ms = int(post_time.get(":created", 0))
+                dt = datetime.utcfromtimestamp(ts_ms / 1000) - timedelta(hours=5)
+            except (ValueError, TypeError):
+                pass
         if not dt:
-            for sel in ("[class*='date']", "[class*='time']", "span"):
-                tag = post.select_one(sel)
-                if tag:
-                    dt = _parse_dt(tag.get_text(strip=True))
-                    if dt:
-                        break
+            time_tag = post.select_one("time[datetime]")
+            dt = _dt_from_time_tag(time_tag)
 
         results.append(_item(titulo, href, medio, dt=dt))
 
@@ -660,8 +666,21 @@ def scrape_bluradio() -> List[Dict]:
         if not titulo or len(titulo) < 10:
             continue
 
-        time_tag = item.select_one("time[datetime]")
-        dt = _dt_from_time_tag(time_tag)
+        dt = None
+        promo_ts = item.select_one("[data-timestamp]")
+        if promo_ts:
+            try:
+                ts_ms = int(promo_ts.get("data-timestamp", 0))
+                dt = datetime.utcfromtimestamp(ts_ms / 1000) - timedelta(hours=5)
+            except (ValueError, TypeError):
+                pass
+        if not dt:
+            time_tag = item.select_one("time[datetime]")
+            dt = _dt_from_time_tag(time_tag)
+        if not dt:
+            ts_tag = item.select_one("[class*='Promo-timestamp']")
+            if ts_tag:
+                dt = _parse_relative(ts_tag.get_text(strip=True))
 
         results.append(_item(titulo, href, medio, dt=dt))
 

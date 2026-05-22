@@ -107,24 +107,22 @@ def _parse_date(s: str) -> Optional[date]:
 
 
 def _fmt_datetime(s: str) -> str:
-    """
-    Devuelve la fecha en formato dd/mm/yyyyThh:mm:ss.
-    Si el string tiene hora la incluye; si solo tiene fecha, solo dd/mm/yyyy.
-    """
+    """Devuelve dd/mm/yyyy HH:MM a. m./p. m. — formato unificado con Scrapermedios."""
     d = _parse_date(s)
     if not d:
         return ""
     base = f"{d.day:02d}/{d.month:02d}/{d.year}"
 
-    # Intentar extraer hora
     m = re.search(r"(\d{1,2}):(\d{2})(?::(\d{2}))?(?:\s*(am|pm))?", s, re.I)
     if m:
-        hh, mm, ss = int(m.group(1)), int(m.group(2)), int(m.group(3) or 0)
+        hh, mm = int(m.group(1)), int(m.group(2))
         if m.group(4) and m.group(4).lower() == "pm" and hh < 12:
             hh += 12
         elif m.group(4) and m.group(4).lower() == "am" and hh == 12:
             hh = 0
-        return f"{base}T{hh:02d}:{mm:02d}:{ss:02d}"
+        h12 = hh % 12 or 12
+        mer = "a. m." if hh < 12 else "p. m."
+        return f"{base} {h12:02d}:{mm:02d} {mer}"
     return base
 
 
@@ -143,11 +141,14 @@ def _abs_url(href: str, base: str) -> str:
 
 
 def _item(title: str, url: str, ministerio: str, fecha_str: str) -> dict:
+    d = _parse_date(fecha_str)
+    _dt_val = datetime(d.year, d.month, d.day) if d else datetime.min
     return {
         "titulo": title.strip(),
         "url": url,
         "ministerio": ministerio,
         "fecha": _fmt_datetime(fecha_str),
+        "_dt": _dt_val,
     }
 
 

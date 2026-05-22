@@ -13,8 +13,8 @@ export default function Navbar({ updatedAt, loading, onRefresh }: NavbarProps) {
     <nav className={styles.navbar}>
       <div className={styles.inner}>
         <NavLink to="/" className={styles.brand}>
-          <IconNewspaper size={22} />
-          <span>Última Hora Colombia</span>
+          <IconNewspaper size={20} />
+          <span className={styles.brandText}>Última Hora Colombia</span>
         </NavLink>
 
         <div className={styles.right}>
@@ -25,10 +25,12 @@ export default function Navbar({ updatedAt, loading, onRefresh }: NavbarProps) {
             className={styles.refreshBtn}
             onClick={onRefresh}
             disabled={loading}
-            title="Actualizar noticias"
+            title={loading ? 'Actualizando…' : 'Actualizar noticias'}
           >
             <IconRefresh size={15} className={loading ? styles.spin : undefined} />
-            {loading ? 'Actualizando…' : 'Actualizar'}
+            <span className={styles.refreshBtnText}>
+              {loading ? 'Actualizando…' : 'Actualizar'}
+            </span>
           </button>
         </div>
       </div>

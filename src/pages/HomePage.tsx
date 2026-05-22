@@ -9,11 +9,9 @@ interface Props {
 }
 
 export default function HomePage({ data, loading, error }: Props) {
-  const sources = Object.keys(data).sort((a, b) => {
-    const lenA = data[a].length;
-    const lenB = data[b].length;
-    return lenB - lenA;
-  });
+  // El Excel ya viene ordenado por bloques (fuente con noticia más reciente primero)
+  // Object.keys preserva el orden de inserción → respetamos ese orden
+  const sources = Object.keys(data);
 
   const totalNoticias = Object.values(data).reduce((s, arr) => s + arr.length, 0);
 

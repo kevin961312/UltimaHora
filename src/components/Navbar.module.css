@@ -10,37 +10,47 @@
 .inner {
   max-width: 1300px;
   margin: 0 auto;
-  padding: 0 1.5rem;
-  height: 64px;
+  padding: 0 1rem;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   color: var(--color-purple-deep);
   text-decoration: none;
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   letter-spacing: -0.01em;
+  white-space: nowrap;
+  min-width: 0;
 }
 
 .brand svg {
   color: var(--color-purple-mid);
+  flex-shrink: 0;
+}
+
+.brandText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .right {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .status {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--color-text-muted);
   white-space: nowrap;
 }
@@ -49,7 +59,7 @@
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.35rem 0.8rem;
+  padding: 0.35rem 0.75rem;
   border: 1px solid var(--color-lilac-border);
   border-radius: 999px;
   background: transparent;
@@ -59,6 +69,21 @@
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.15s, color 0.15s;
+}
+
+@media (max-width: 520px) {
+  .status {
+    display: none;
+  }
+
+  .refreshBtnText {
+    display: none;
+  }
+
+  .refreshBtn {
+    padding: 0.4rem;
+    border-radius: 50%;
+  }
 }
 
 .refreshBtn:hover:not(:disabled) {
