@@ -1,4 +1,4 @@
-Iniciando scraping — 30/05/2026 22:24:49
+Iniciando scraping — 30/05/2026 22:49:46
 
 ────────────────────────────────────────────────────────────
   ENTIDADES OFICIALES (21 scrapers)
@@ -14,23 +14,23 @@ Iniciando scraping — 30/05/2026 22:24:49
   [!] https://www.cancilleria.gov.co/newsroom/news → 403 Client Error: Forbidden for url: https://www.cancilleria.gov.co/newsroom/news
   [✓] Cancillería: 0 noticias
   [✓] MinIgualdad: 0 noticias
-  [✓] MinEducación: 5 noticias
+  [✓] MinAmbiente: 0 noticias
   [i] Mincultura: SharePoint con muro de autenticación, sin resultados.
   [✓] MinVivienda: 0 noticias
   [✓] MinCultura: 0 noticias
-  [✓] MinTIC: 0 noticias
   [✓] MinInterior: 1 noticias
   [✓] MinCiencias: 0 noticias
   [✓] MinDeporte: 0 noticias
   [✓] MinCIT: 0 noticias
-  [✓] SuperSalud: 1 noticias
+  [✓] MinEducación: 5 noticias
   [✓] MinTransporte: 0 noticias
-  [✓] MinAmbiente: 0 noticias
+  [✓] SuperSalud: 1 noticias
+  [✓] MinTIC: 0 noticias
   [✓] Procuraduría: 4 noticias
   [✓] Fiscalía: 7 noticias
-  [!] https://www.minenergia.gov.co/es/sala-de-prensa/ → HTTPSConnectionPool(host='www.minenergia.gov.co', port=443): Max retries exceeded with url: /es/sala-de-prensa/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.minenergia.gov.co', port=443) at 0x7f764ef22150>, 'Connection to www.minenergia.gov.co timed out. (connect timeout=15)'))
+  [!] https://www.minenergia.gov.co/es/sala-de-prensa/ → HTTPSConnectionPool(host='www.minenergia.gov.co', port=443): Max retries exceeded with url: /es/sala-de-prensa/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.minenergia.gov.co', port=443) at 0x7f7327c69050>, 'Connection to www.minenergia.gov.co timed out. (connect timeout=15)'))
   [✓] MinEnergía: 0 noticias
-  [!] https://www.mintrabajo.gov.co/web/guest/prensa/comunicados → HTTPSConnectionPool(host='www.mintrabajo.gov.co', port=443): Max retries exceeded with url: /web/guest/prensa/comunicados (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mintrabajo.gov.co', port=443) at 0x7f764ef23410>, 'Connection to www.mintrabajo.gov.co timed out. (connect timeout=15)'))
+  [!] https://www.mintrabajo.gov.co/web/guest/prensa/comunicados → HTTPSConnectionPool(host='www.mintrabajo.gov.co', port=443): Max retries exceeded with url: /web/guest/prensa/comunicados (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mintrabajo.gov.co', port=443) at 0x7f7327c6e0d0>, 'Connection to www.mintrabajo.gov.co timed out. (connect timeout=15)'))
   [✓] MinTrabajo: 0 noticias
 
 ────────────────────────────────────────────────────────────
@@ -38,31 +38,31 @@ Iniciando scraping — 30/05/2026 22:24:49
 ────────────────────────────────────────────────────────────
   [✓] ElTiempo: 20 noticias
   [✓] ElEspectador: 10 noticias
-  [✓] ElColombiano: 30 noticias
+  [✓] Vanguardia: 13 noticias
   [i] Teleantioquia: renderizado por JS, sin resultados estáticos.
-  [✓] Vanguardia: 15 noticias
+  [✓] ElColombiano: 30 noticias
   [✓] Teleantioquia: 0 noticias
-  [✓] ElUniversal: 25 noticias
-  [✓] NoticiasRCN: 0 noticias
   [✓] ElPaís: 30 noticias
   [✓] CaracolRadio: 20 noticias
-  [✓] NoticiasCaracol: 23 noticias
+  [✓] NoticiasRCN: 0 noticias
+  [✓] ElUniversal: 25 noticias
   [✓] LaFM: 20 noticias
   [✓] BluRadio: 12 noticias
-  [✓] InfobaeColombia: 20 noticias
-  [✓] LaSillaVacía: 20 noticias
   [✓] Semana: 30 noticias
+  [✓] LaSillaVacía: 20 noticias
+  [✓] InfobaeColombia: 20 noticias
   [✓] CambioColombia: 16 noticias
   [✓] CanalTrece: 30 noticias
+  [✓] NoticiasCaracol: 23 noticias
 
 ════════════════════════════════════════════════════════════
   Entidades oficiales   :   18 noticias
-  Medios de comunicación:  321 noticias
-  TOTAL                 :  339 noticias
+  Medios de comunicación:  319 noticias
+  TOTAL                 :  337 noticias
 ════════════════════════════════════════════════════════════
 
 Excel guardado en: /home/runner/work/UltimaHora/UltimaHora/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/public/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/docs/ultimahora.xlsx
 
-Fin — 30/05/2026 22:25:07
+Fin — 30/05/2026 22:50:05
