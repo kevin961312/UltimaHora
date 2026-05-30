@@ -83,22 +83,28 @@ def _run(scrapers, tipo_label: str, fuente_field: str, max_workers: int) -> List
     return all_items
 
 
+_PINNED_SOURCES = {"El Tiempo"}   # bloques que siempre aparecen primero
+
+
 def _block_sort(items: List[Dict]) -> List[Dict]:
-    """Agrupa por fuente y ordena los bloques por la noticia más reciente de cada fuente."""
+    """Agrupa por fuente y ordena los bloques por la noticia más reciente.
+    Las fuentes en _PINNED_SOURCES siempre van al inicio, en el orden en que aparecen allí."""
     from collections import defaultdict
     groups: dict = defaultdict(list)
     for item in items:
         groups[item["fuente"]].append(item)
 
-    # Ordenar artículos dentro de cada bloque (más reciente primero)
     for fuente in groups:
         groups[fuente].sort(key=lambda x: x["_dt"], reverse=True)
 
-    # Ordenar bloques por el artículo más reciente de cada fuente
-    sorted_fuentes = sorted(groups.keys(), key=lambda f: groups[f][0]["_dt"], reverse=True)
+    pinned   = [f for f in _PINNED_SOURCES if f in groups]
+    rest     = sorted(
+        (f for f in groups if f not in _PINNED_SOURCES),
+        key=lambda f: groups[f][0]["_dt"], reverse=True,
+    )
 
     result = []
-    for fuente in sorted_fuentes:
+    for fuente in pinned + rest:
         result.extend(groups[fuente])
     return result
 
