@@ -1020,20 +1020,173 @@ def scrape_cambiocolombia() -> List[Dict]:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# 14. El Tiempo
+#     URL: https://www.eltiempo.com/ultimas-noticias
+#     Items: article.c-article  →  h3.c-article__title > a (título + URL relativa)
+#                                   time.c-article__date[datetime] (ISO con offset COT)
+# ─────────────────────────────────────────────────────────────────────────────
+def scrape_eltiempo() -> List[Dict]:
+    medio = "El Tiempo"
+    base  = "https://www.eltiempo.com"
+    soup  = _soup(f"{base}/ultimas-noticias")
+    if not soup:
+        return []
+
+    results, seen = [], set()
+    for art in soup.find_all("article", class_=re.compile(r"c-article")):
+        a_tag = art.select_one("h3.c-article__title a[href]")
+        if not a_tag:
+            continue
+        href = _abs_url(a_tag.get("href", ""), base)
+        if not href or href in seen:
+            continue
+        seen.add(href)
+
+        titulo = a_tag.get_text(strip=True)
+        if not titulo or len(titulo) < 8:
+            continue
+
+        time_tag = art.select_one("time.c-article__date[datetime]")
+        dt = _dt_from_time_tag(time_tag)
+        results.append(_item(titulo, href, medio, dt=dt))
+        if len(results) >= 20:
+            break
+
+    return results
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 15. Infobae Colombia
+#     URL: https://www.infobae.com/colombia/ultimas-noticias/
+#     Items: a.feed-list-card  →  h2 (título)
+#     Fecha: extraída del path de la URL (/2026/05/30/)
+# ─────────────────────────────────────────────────────────────────────────────
+def scrape_infobae() -> List[Dict]:
+    medio = "Infobae Colombia"
+    base  = "https://www.infobae.com"
+    soup  = _soup(f"{base}/colombia/ultimas-noticias/")
+    if not soup:
+        return []
+
+    results, seen = [], set()
+    for a in soup.select("a.feed-list-card"):
+        href = _abs_url(a.get("href", ""), base)
+        if not href or href in seen:
+            continue
+        seen.add(href)
+        h2 = a.select_one("h2")
+        titulo = h2.get_text(strip=True) if h2 else a.get_text(strip=True)
+        if not titulo or len(titulo) < 8:
+            continue
+        m = re.search(r"/(\d{4})/(\d{2})/(\d{2})/", href)
+        dt = None
+        if m:
+            try:
+                from datetime import datetime as _dt
+                dt = _dt(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+            except ValueError:
+                pass
+        results.append(_item(titulo, href, medio, dt=dt))
+        if len(results) >= 20:
+            break
+    return results
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 16. Caracol Radio — Actualidad
+#     URL: https://caracol.com.co/actualidad/
+#     Items: article.sc  →  div.c-dat-sc > header > a > h2
+#     Fecha: div.c-bln > p  → "29/05/2026 - 21:49"
+# ─────────────────────────────────────────────────────────────────────────────
+def scrape_caracolradio() -> List[Dict]:
+    medio = "Caracol Radio"
+    base  = "https://caracol.com.co"
+    soup  = _soup(f"{base}/actualidad/")
+    if not soup:
+        return []
+
+    results, seen = [], set()
+    for art in soup.find_all("article"):
+        a = art.select_one("div.c-dat-sc header a[href]") or art.select_one("header a[href]")
+        if not a:
+            continue
+        href = _abs_url(a.get("href", ""), base)
+        if not href or href in seen:
+            continue
+        seen.add(href)
+        h2 = art.select_one("h2")
+        titulo = h2.get_text(strip=True) if h2 else a.get_text(strip=True)
+        if not titulo or len(titulo) < 8:
+            continue
+        fecha_p = art.select_one("div.c-bln p")
+        fecha_str = fecha_p.get_text(strip=True).replace(" - ", " ") if fecha_p else ""
+        dt = _parse_dt(fecha_str)
+        results.append(_item(titulo, href, medio, dt=dt))
+        if len(results) >= 20:
+            break
+    return results
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 17. LaFM — Últimas Noticias
+#     URL: https://www.lafm.com.co/ultimas-noticias
+#     Items: section.grid-news > div.news-1 > div.info > h3.title > a
+#     Fecha: path de la imagen noscript: /news-images/YYYY/MM/DD/HHMMSS/
+# ─────────────────────────────────────────────────────────────────────────────
+def scrape_lafm() -> List[Dict]:
+    medio = "LaFM"
+    base  = "https://www.lafm.com.co"
+    soup  = _soup(f"{base}/ultimas-noticias")
+    if not soup:
+        return []
+
+    results, seen = [], set()
+    for item in soup.select("div.news-1"):
+        a = item.select_one("h3.title a[href]")
+        if not a:
+            continue
+        href = _abs_url(a.get("href", ""), base)
+        if not href or href in seen:
+            continue
+        seen.add(href)
+        titulo = a.get_text(strip=True)
+        if not titulo or len(titulo) < 8:
+            continue
+        dt = None
+        img = item.select_one("noscript img[src]")
+        if img:
+            m = re.search(r"/(\d{4})/(\d{2})/(\d{2})/(\d{2})(\d{2})(\d{2})/", img.get("src", ""))
+            if m:
+                try:
+                    dt = datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)),
+                                  int(m.group(4)), int(m.group(5)), int(m.group(6)))
+                except ValueError:
+                    pass
+        results.append(_item(titulo, href, medio, dt=dt))
+        if len(results) >= 20:
+            break
+    return results
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Registro y ejecución paralela
 # ─────────────────────────────────────────────────────────────────────────────
 SCRAPERS: List[tuple] = [
+    ("ElTiempo",        scrape_eltiempo),       # fijo primero (pinned)
     ("ElEspectador",    scrape_elespectador),
     ("ElColombiano",    scrape_elcolombiano),
     ("ElPaís",          scrape_elpais),
     ("Vanguardia",      scrape_vanguardia),
     ("ElUniversal",     scrape_eluniversal),
     ("NoticiasCaracol", scrape_noticiascaracol),
+    ("CaracolRadio",    scrape_caracolradio),
     ("NoticiasRCN",     scrape_noticiasrcn),
     ("Teleantioquia",   scrape_teleantioquia),
     ("CanalTrece",      scrape_canaltrece),
     ("BluRadio",        scrape_bluradio),
+    ("LaFM",            scrape_lafm),
     ("Semana",          scrape_semana),
+    ("InfobaeColombia", scrape_infobae),
     ("LaSillaVacía",    scrape_lasillavacia),
     ("CambioColombia",  scrape_cambiocolombia),
 ]

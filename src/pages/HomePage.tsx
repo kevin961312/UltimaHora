@@ -2,6 +2,8 @@ import SourceCard from '../components/SourceCard';
 import { NoticiasMap } from '../hooks/useNoticias';
 import styles from './HomePage.module.css';
 
+const PINNED = 'El Tiempo';
+
 interface Props {
   data:    NoticiasMap;
   loading: boolean;
@@ -9,9 +11,9 @@ interface Props {
 }
 
 export default function HomePage({ data, loading, error }: Props) {
-  // El Excel ya viene ordenado por bloques (fuente con noticia más reciente primero)
-  // Object.keys preserva el orden de inserción → respetamos ese orden
-  const sources = Object.keys(data);
+  const sources      = Object.keys(data);
+  const otherSources = sources.filter(s => s !== PINNED);
+  const hasPinned    = PINNED in data;
 
   const totalNoticias = Object.values(data).reduce((s, arr) => s + arr.length, 0);
 
@@ -42,25 +44,40 @@ export default function HomePage({ data, loading, error }: Props) {
       </div>
 
       {loading ? (
-        <div className={styles.grid}>
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className={styles.skeleton} />
-          ))}
+        <div className={styles.layout}>
+          <div className={styles.pinnedLeft}><div className={styles.skeleton} style={{ height: '100%', minHeight: 400 }} /></div>
+          <div className={styles.grid}>
+            {Array.from({ length: 10 }).map((_, i) => (
+              <div key={i} className={styles.skeleton} />
+            ))}
+          </div>
         </div>
       ) : sources.length === 0 ? (
         <div className={styles.center}>
           <p className={styles.empty}>No hay noticias para hoy todavía.</p>
         </div>
       ) : (
-        <div className={styles.grid}>
-          {sources.map((fuente, i) => (
-            <SourceCard
-              key={fuente}
-              fuente={fuente}
-              noticias={data[fuente]}
-              index={i}
-            />
-          ))}
+        <div className={styles.layout}>
+          {hasPinned && (
+            <aside className={styles.pinnedLeft}>
+              <SourceCard
+                fuente={PINNED}
+                noticias={data[PINNED]}
+                index={0}
+                showAll
+              />
+            </aside>
+          )}
+          <div className={styles.grid}>
+            {otherSources.map((fuente, i) => (
+              <SourceCard
+                key={fuente}
+                fuente={fuente}
+                noticias={data[fuente]}
+                index={hasPinned ? i + 1 : i}
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>

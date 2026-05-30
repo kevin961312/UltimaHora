@@ -15,17 +15,18 @@ const CARD_COLORS = [
 ];
 
 interface Props {
-  fuente:  string;
+  fuente:   string;
   noticias: Noticia[];
-  index:   number;
+  index:    number;
+  showAll?: boolean;
 }
 
 const PREVIEW = 5;
 
-export default function SourceCard({ fuente, noticias, index }: Props) {
+export default function SourceCard({ fuente, noticias, index, showAll = false }: Props) {
   const navigate = useNavigate();
   const color    = CARD_COLORS[index % CARD_COLORS.length];
-  const preview  = noticias.slice(0, PREVIEW);
+  const visible  = showAll ? noticias : noticias.slice(0, PREVIEW);
   const tipo     = noticias[0]?.Tipo ?? '';
 
   return (
@@ -41,7 +42,7 @@ export default function SourceCard({ fuente, noticias, index }: Props) {
       </header>
 
       <ul className={styles.list}>
-        {preview.map((n, i) => (
+        {visible.map((n, i) => (
           <li key={i} className={styles.item}>
             <span className={styles.fecha}>{n.Fecha}</span>
             <a
@@ -57,7 +58,7 @@ export default function SourceCard({ fuente, noticias, index }: Props) {
         ))}
       </ul>
 
-      {noticias.length > PREVIEW && (
+      {!showAll && noticias.length > PREVIEW && (
         <footer className={styles.footer}>
           <button
             className={styles.verMas}
