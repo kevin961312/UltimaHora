@@ -16,12 +16,49 @@
   transform: translateY(-2px);
 }
 
+.cardPinned {
+  border-top-width: 3px;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--card-accent) 35%, transparent),
+              0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
 .header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.5rem;
   padding: 0.85rem 1rem 0.6rem;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.pinBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  border-radius: 4px;
+  color: var(--color-text-muted);
+  opacity: 0.4;
+  transition: opacity 0.15s, color 0.15s;
+  display: flex;
+  align-items: center;
+  line-height: 0;
+}
+
+.pinBtn:hover {
+  opacity: 1;
+  color: var(--card-accent);
+}
+
+.pinActive {
+  opacity: 1;
+  color: var(--card-accent);
 }
 
 .title {

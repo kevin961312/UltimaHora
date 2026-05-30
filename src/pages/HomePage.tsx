@@ -1,8 +1,9 @@
 import SourceCard from '../components/SourceCard';
 import { NoticiasMap } from '../hooks/useNoticias';
+import { usePinnedSources } from '../hooks/usePinnedSources';
 import styles from './HomePage.module.css';
 
-const PINNED = 'El Tiempo';
+const LEFT_FIXED = 'El Tiempo';   // siempre fijo a la izquierda, sin pin
 
 interface Props {
   data:    NoticiasMap;
@@ -11,9 +12,19 @@ interface Props {
 }
 
 export default function HomePage({ data, loading, error }: Props) {
+  const { isPinned, toggle } = usePinnedSources();
+
   const sources      = Object.keys(data);
-  const otherSources = sources.filter(s => s !== PINNED);
-  const hasPinned    = PINNED in data;
+  const hasLeftFixed = LEFT_FIXED in data;
+
+  // Resto: primero los que tienen pin, luego los demás (orden original)
+  const otherSources = sources
+    .filter(s => s !== LEFT_FIXED)
+    .sort((a, b) => {
+      const pa = isPinned(a) ? 0 : 1;
+      const pb = isPinned(b) ? 0 : 1;
+      return pa - pb;
+    });
 
   const totalNoticias = Object.values(data).reduce((s, arr) => s + arr.length, 0);
 
@@ -58,11 +69,11 @@ export default function HomePage({ data, loading, error }: Props) {
         </div>
       ) : (
         <div className={styles.layout}>
-          {hasPinned && (
+          {hasLeftFixed && (
             <aside className={styles.pinnedLeft}>
               <SourceCard
-                fuente={PINNED}
-                noticias={data[PINNED]}
+                fuente={LEFT_FIXED}
+                noticias={data[LEFT_FIXED]}
                 index={0}
                 showAll
               />
@@ -74,7 +85,9 @@ export default function HomePage({ data, loading, error }: Props) {
                 key={fuente}
                 fuente={fuente}
                 noticias={data[fuente]}
-                index={hasPinned ? i + 1 : i}
+                index={hasLeftFixed ? i + 1 : i}
+                isPinned={isPinned(fuente)}
+                onTogglePin={() => toggle(fuente)}
               />
             ))}
           </div>

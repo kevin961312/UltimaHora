@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { IconExternalLink } from './icons';
+import { IconExternalLink, IconPin } from './icons';
 import { Noticia, toSlug } from '../hooks/useNoticias';
 import styles from './SourceCard.module.css';
 
@@ -15,15 +15,17 @@ const CARD_COLORS = [
 ];
 
 interface Props {
-  fuente:   string;
-  noticias: Noticia[];
-  index:    number;
-  showAll?: boolean;
+  fuente:        string;
+  noticias:      Noticia[];
+  index:         number;
+  showAll?:      boolean;
+  isPinned?:     boolean;
+  onTogglePin?:  () => void;
 }
 
 const PREVIEW = 5;
 
-export default function SourceCard({ fuente, noticias, index, showAll = false }: Props) {
+export default function SourceCard({ fuente, noticias, index, showAll = false, isPinned = false, onTogglePin }: Props) {
   const navigate = useNavigate();
   const color    = CARD_COLORS[index % CARD_COLORS.length];
   const visible  = showAll ? noticias : noticias.slice(0, PREVIEW);
@@ -31,14 +33,26 @@ export default function SourceCard({ fuente, noticias, index, showAll = false }:
 
   return (
     <article
-      className={styles.card}
+      className={`${styles.card} ${isPinned ? styles.cardPinned : ''}`}
       style={{ '--card-bg': color.bg, '--card-accent': color.accent } as React.CSSProperties}
     >
       <header className={styles.header}>
         <h2 className={styles.title}>{fuente}</h2>
-        <span className={`${styles.badge} ${tipo.includes('Oficial') ? styles.oficial : styles.medio}`}>
-          {tipo.includes('Oficial') ? 'Oficial' : 'Medio'}
-        </span>
+        <div className={styles.headerRight}>
+          {onTogglePin && (
+            <button
+              className={`${styles.pinBtn} ${isPinned ? styles.pinActive : ''}`}
+              onClick={onTogglePin}
+              title={isPinned ? 'Quitar pin' : 'Fijar fuente'}
+              aria-label={isPinned ? 'Quitar pin' : 'Fijar fuente'}
+            >
+              <IconPin size={14} filled={isPinned} />
+            </button>
+          )}
+          <span className={`${styles.badge} ${tipo.includes('Oficial') ? styles.oficial : styles.medio}`}>
+            {tipo.includes('Oficial') ? 'Oficial' : 'Medio'}
+          </span>
+        </div>
       </header>
 
       <ul className={styles.list}>
