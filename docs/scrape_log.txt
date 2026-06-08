@@ -1,4 +1,4 @@
-Iniciando scraping — 08/06/2026 01:03:42
+Iniciando scraping — 08/06/2026 02:23:39
 
 ────────────────────────────────────────────────────────────
   ENTIDADES OFICIALES (21 scrapers)
@@ -7,10 +7,10 @@ Iniciando scraping — 08/06/2026 01:03:42
   [i] Minjusticia: SharePoint con contenido dinámico (JS), sin resultados.
   [i] Mindefensa: requiere JavaScript, sin resultados.
   [i] Minsalud: SharePoint con contenido dinámico, sin resultados.
-  [✓] MinJusticia: 0 noticias
-  [✓] MinHacienda: 0 noticias
-  [✓] MinSalud: 0 noticias
   [✓] MinDefensa: 0 noticias
+  [✓] MinJusticia: 0 noticias
+  [✓] MinSalud: 0 noticias
+  [✓] MinHacienda: 0 noticias
   [!] https://www.cancilleria.gov.co/newsroom/news → 403 Client Error: Forbidden for url: https://www.cancilleria.gov.co/newsroom/news
   [✓] Cancillería: 0 noticias
   [✓] MinIgualdad: 0 noticias
@@ -19,54 +19,50 @@ Iniciando scraping — 08/06/2026 01:03:42
   [✓] MinVivienda: 0 noticias
   [✓] MinCultura: 0 noticias
   [✓] MinInterior: 0 noticias
-  [✓] MinDeporte: 0 noticias
   [✓] MinCiencias: 0 noticias
-  [✓] MinTransporte: 0 noticias
-  [✓] Fiscalía: 0 noticias
-  [✓] MinTIC: 0 noticias
-  [!] https://www.mincit.gov.co/prensa/noticias → HTTPSConnectionPool(host='www.mincit.gov.co', port=443): Max retries exceeded with url: /prensa/noticias (Caused by NewConnectionError("HTTPSConnection(host='www.mincit.gov.co', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))
+  [✓] MinDeporte: 0 noticias
+  [✓] MinEducación: 1 noticias
   [✓] MinCIT: 0 noticias
-  [!] https://www.minenergia.gov.co/es/sala-de-prensa/ → HTTPSConnectionPool(host='www.minenergia.gov.co', port=443): Max retries exceeded with url: /es/sala-de-prensa/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.minenergia.gov.co', port=443) at 0x7fb2f536aad0>, 'Connection to www.minenergia.gov.co timed out. (connect timeout=15)'))
-  [✓] MinEnergía: 0 noticias
-  [!] https://www.mineducacion.gov.co/portal/salaprensa/ → HTTPSConnectionPool(host='www.mineducacion.gov.co', port=443): Max retries exceeded with url: /portal/salaprensa/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mineducacion.gov.co', port=443) at 0x7fb2f5369b90>, 'Connection to www.mineducacion.gov.co timed out. (connect timeout=15)'))
-  [✓] MinEducación: 0 noticias
-  [!] https://www.mintrabajo.gov.co/web/guest/prensa/comunicados → HTTPSConnectionPool(host='www.mintrabajo.gov.co', port=443): Max retries exceeded with url: /web/guest/prensa/comunicados (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mintrabajo.gov.co', port=443) at 0x7fb2f62f4090>, 'Connection to www.mintrabajo.gov.co timed out. (connect timeout=15)'))
-  [✓] MinTrabajo: 0 noticias
-  [!] Procuraduría → HTTPSConnectionPool(host='www.procuraduria.gov.co', port=443): Max retries exceeded with url: /_api/web/lists('23026bcd-927a-4f42-b257-409a76f78bae')/RenderListDataAsStream (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.procuraduria.gov.co', port=443) at 0x7fb2dcee9150>, 'Connection to www.procuraduria.gov.co timed out. (connect timeout=20)'))
-  [✓] Procuraduría: 0 noticias
-  [!] SuperSalud → HTTPSConnectionPool(host='www.supersalud.gov.co', port=443): Max retries exceeded with url: /_api/search/query?querytext='ContentType:Noticia'&selectproperties='Title,Path,Write'&sortlist='Write:descending'&rowlimit=50 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.supersalud.gov.co', port=443) at 0x7fb2f531dd10>, 'Connection to www.supersalud.gov.co timed out. (connect timeout=20)'))
+  [✓] MinTransporte: 0 noticias
   [✓] SuperSalud: 0 noticias
+  [✓] MinTIC: 0 noticias
+  [✓] Procuraduría: 0 noticias
+  [✓] Fiscalía: 0 noticias
+  [!] https://www.minenergia.gov.co/es/sala-de-prensa/ → HTTPSConnectionPool(host='www.minenergia.gov.co', port=443): Max retries exceeded with url: /es/sala-de-prensa/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.minenergia.gov.co', port=443) at 0x7f2670936910>, 'Connection to www.minenergia.gov.co timed out. (connect timeout=15)'))
+  [✓] MinEnergía: 0 noticias
+  [!] https://www.mintrabajo.gov.co/web/guest/prensa/comunicados → HTTPSConnectionPool(host='www.mintrabajo.gov.co', port=443): Max retries exceeded with url: /web/guest/prensa/comunicados (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mintrabajo.gov.co', port=443) at 0x7f2670934950>, 'Connection to www.mintrabajo.gov.co timed out. (connect timeout=15)'))
+  [✓] MinTrabajo: 0 noticias
 
 ────────────────────────────────────────────────────────────
   MEDIOS DE COMUNICACIÓN (17 scrapers)
 ────────────────────────────────────────────────────────────
-  [✓] ElColombiano: 30 noticias
   [✓] ElTiempo: 20 noticias
-  [✓] Vanguardia: 17 noticias
+  [✓] ElEspectador: 10 noticias
+  [✓] ElColombiano: 30 noticias
   [i] Teleantioquia: renderizado por JS, sin resultados estáticos.
-  [✓] ElUniversal: 25 noticias
+  [✓] Vanguardia: 17 noticias
   [✓] Teleantioquia: 0 noticias
   [✓] CaracolRadio: 20 noticias
+  [✓] ElUniversal: 25 noticias
+  [✓] NoticiasCaracol: 30 noticias
   [✓] NoticiasRCN: 0 noticias
   [✓] ElPaís: 30 noticias
-  [✓] ElEspectador: 10 noticias
-  [✓] NoticiasCaracol: 30 noticias
-  [✓] LaSillaVacía: 20 noticias
-  [✓] BluRadio: 12 noticias
   [✓] LaFM: 20 noticias
+  [✓] LaSillaVacía: 20 noticias
   [✓] InfobaeColombia: 20 noticias
   [✓] Semana: 30 noticias
   [✓] CanalTrece: 30 noticias
+  [✓] BluRadio: 12 noticias
   [✓] CambioColombia: 25 noticias
 
 ════════════════════════════════════════════════════════════
-  Entidades oficiales   :    0 noticias
+  Entidades oficiales   :    1 noticias
   Medios de comunicación:  339 noticias
-  TOTAL                 :  339 noticias
+  TOTAL                 :  340 noticias
 ════════════════════════════════════════════════════════════
 
 Excel guardado en: /home/runner/work/UltimaHora/UltimaHora/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/public/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/docs/ultimahora.xlsx
 
-Fin — 08/06/2026 01:04:10
+Fin — 08/06/2026 02:23:59
