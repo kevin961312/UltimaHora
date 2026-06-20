@@ -1,4 +1,4 @@
-Iniciando scraping — 20/06/2026 21:32:48
+Iniciando scraping — 20/06/2026 22:30:31
 
 ────────────────────────────────────────────────────────────
   ENTIDADES OFICIALES (21 scrapers)
@@ -7,63 +7,65 @@ Iniciando scraping — 20/06/2026 21:32:48
   [i] Minjusticia: SharePoint con contenido dinámico (JS), sin resultados.
   [i] Mindefensa: requiere JavaScript, sin resultados.
   [i] Minsalud: SharePoint con contenido dinámico, sin resultados.
+  [✓] MinSalud: 0 noticias
   [✓] MinHacienda: 0 noticias
   [✓] MinJusticia: 0 noticias
   [✓] MinDefensa: 0 noticias
-  [✓] MinSalud: 0 noticias
   [!] https://www.cancilleria.gov.co/newsroom/news → 403 Client Error: Forbidden for url: https://www.cancilleria.gov.co/newsroom/news
   [✓] Cancillería: 0 noticias
   [✓] MinIgualdad: 0 noticias
   [✓] MinAmbiente: 0 noticias
   [i] Mincultura: SharePoint con muro de autenticación, sin resultados.
-  [✓] MinInterior: 0 noticias
-  [✓] MinCultura: 0 noticias
-  [✓] MinTIC: 0 noticias
   [✓] MinEducación: 7 noticias
+  [✓] MinCultura: 0 noticias
   [✓] MinVivienda: 0 noticias
+  [✓] MinInterior: 0 noticias
+  [✓] MinCiencias: 0 noticias
+  [✓] MinTIC: 0 noticias
+  [✓] MinDeporte: 0 noticias
   [✓] MinCIT: 1 noticias
   [✓] SuperSalud: 1 noticias
-  [✓] MinCiencias: 0 noticias
-  [✓] MinDeporte: 0 noticias
   [✓] MinTransporte: 0 noticias
   [✓] Procuraduría: 4 noticias
-  [!] https://www.minenergia.gov.co/es/sala-de-prensa/ → HTTPSConnectionPool(host='www.minenergia.gov.co', port=443): Max retries exceeded with url: /es/sala-de-prensa/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.minenergia.gov.co', port=443) at 0x7ff96352e190>, 'Connection to www.minenergia.gov.co timed out. (connect timeout=15)'))
+  [!] https://www.minenergia.gov.co/es/sala-de-prensa/ → HTTPSConnectionPool(host='www.minenergia.gov.co', port=443): Max retries exceeded with url: /es/sala-de-prensa/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.minenergia.gov.co', port=443) at 0x7f8a771221d0>, 'Connection to www.minenergia.gov.co timed out. (connect timeout=15)'))
   [✓] MinEnergía: 0 noticias
-  [!] https://www.mintrabajo.gov.co/web/guest/prensa/comunicados → HTTPSConnectionPool(host='www.mintrabajo.gov.co', port=443): Max retries exceeded with url: /web/guest/prensa/comunicados (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mintrabajo.gov.co', port=443) at 0x7ff96352ead0>, 'Connection to www.mintrabajo.gov.co timed out. (connect timeout=15)'))
+  [!] https://www.mintrabajo.gov.co/web/guest/prensa/comunicados → HTTPSConnectionPool(host='www.mintrabajo.gov.co', port=443): Max retries exceeded with url: /web/guest/prensa/comunicados (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mintrabajo.gov.co', port=443) at 0x7f8a77122690>, 'Connection to www.mintrabajo.gov.co timed out. (connect timeout=15)'))
   [✓] MinTrabajo: 0 noticias
-  [!] https://www.fiscalia.gov.co/colombia/noticias/ → HTTPSConnectionPool(host='www.fiscalia.gov.co', port=443): Max retries exceeded with url: /colombia/noticias/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fiscalia.gov.co', port=443) at 0x7ff958e2cd90>, 'Connection to www.fiscalia.gov.co timed out. (connect timeout=15)'))
+  [!] https://www.fiscalia.gov.co/colombia/noticias/ → HTTPSConnectionPool(host='www.fiscalia.gov.co', port=443): Max retries exceeded with url: /colombia/noticias/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fiscalia.gov.co', port=443) at 0x7f8a54e23ad0>, 'Connection to www.fiscalia.gov.co timed out. (connect timeout=15)'))
   [✓] Fiscalía: 0 noticias
 
 ────────────────────────────────────────────────────────────
   MEDIOS DE COMUNICACIÓN (17 scrapers)
 ────────────────────────────────────────────────────────────
   [✓] ElTiempo: 20 noticias
-  [✓] ElEspectador: 10 noticias
-  [✓] Vanguardia: 16 noticias
-  [i] Teleantioquia: renderizado por JS, sin resultados estáticos.
-  [✓] CaracolRadio: 20 noticias
-  [✓] Teleantioquia: 0 noticias
-  [✓] NoticiasRCN: 0 noticias
+  [!] https://elpais.com/ultimas-noticias/ → 403 Client Error: Forbidden for url: https://elpais.com/ultimas-noticias/
+  [✓] ElPaís: 0 noticias
   [✓] ElColombiano: 30 noticias
+  [i] Teleantioquia: renderizado por JS, sin resultados estáticos.
+  [✓] ElEspectador: 10 noticias
+  [✓] Teleantioquia: 0 noticias
+  [✓] Vanguardia: 17 noticias
   [✓] ElUniversal: 25 noticias
+  [✓] NoticiasRCN: 0 noticias
+  [✓] CaracolRadio: 20 noticias
   [✓] LaFM: 20 noticias
-  [✓] InfobaeColombia: 20 noticias
-  [✓] LaSillaVacía: 20 noticias
-  [✓] CambioColombia: 16 noticias
   [✓] BluRadio: 12 noticias
+  [✓] NoticiasCaracol: 30 noticias
+  [!] https://www.lasillavacia.com/wp-json/wp/v2/posts?categories=4932&per_p → 429 Client Error: Too Many Requests for url: https://www.lasillavacia.com/wp-json/wp/v2/posts?categories=4932&per_page=20&orderby=date&order=desc
+  [✓] InfobaeColombia: 20 noticias
+  [✓] LaSillaVacía: 0 noticias
   [✓] Semana: 30 noticias
+  [✓] CambioColombia: 16 noticias
   [✓] CanalTrece: 30 noticias
-  [✓] ElPaís: 30 noticias
-  [✓] NoticiasCaracol: 29 noticias
 
 ════════════════════════════════════════════════════════════
   Entidades oficiales   :   13 noticias
-  Medios de comunicación:  328 noticias
-  TOTAL                 :  341 noticias
+  Medios de comunicación:  280 noticias
+  TOTAL                 :  293 noticias
 ════════════════════════════════════════════════════════════
 
 Excel guardado en: /home/runner/work/UltimaHora/UltimaHora/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/public/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/docs/ultimahora.xlsx
 
-Fin — 20/06/2026 21:33:09
+Fin — 20/06/2026 22:30:49
