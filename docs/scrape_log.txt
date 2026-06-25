@@ -1,4 +1,4 @@
-Iniciando scraping — 24/06/2026 23:56:49
+Iniciando scraping — 25/06/2026 01:13:13
 
 ────────────────────────────────────────────────────────────
   ENTIDADES OFICIALES (21 scrapers)
@@ -7,63 +7,66 @@ Iniciando scraping — 24/06/2026 23:56:49
   [i] Minjusticia: SharePoint con contenido dinámico (JS), sin resultados.
   [i] Mindefensa: requiere JavaScript, sin resultados.
   [i] Minsalud: SharePoint con contenido dinámico, sin resultados.
-  [✓] MinHacienda: 0 noticias
+  [✓] MinSalud: 0 noticias
   [✓] MinDefensa: 0 noticias
   [✓] MinJusticia: 0 noticias
-  [✓] MinSalud: 0 noticias
+  [✓] MinHacienda: 0 noticias
   [!] https://www.cancilleria.gov.co/newsroom/news → 403 Client Error: Forbidden for url: https://www.cancilleria.gov.co/newsroom/news
   [✓] Cancillería: 0 noticias
   [✓] MinIgualdad: 0 noticias
   [✓] MinAmbiente: 0 noticias
   [i] Mincultura: SharePoint con muro de autenticación, sin resultados.
-  [✓] MinInterior: 1 noticias
+  [✓] MinEducación: 0 noticias
   [✓] MinCultura: 0 noticias
-  [✓] MinEducación: 4 noticias
+  [✓] MinInterior: 0 noticias
   [✓] MinVivienda: 0 noticias
-  [✓] MinTIC: 0 noticias
-  [✓] MinDeporte: 0 noticias
-  [✓] MinCiencias: 0 noticias
   [✓] MinCIT: 0 noticias
-  [✓] SuperSalud: 3 noticias
-  [✓] MinTransporte: 0 noticias
-  [✓] Procuraduría: 4 noticias
-  [!] https://www.minenergia.gov.co/es/sala-de-prensa/ → HTTPSConnectionPool(host='www.minenergia.gov.co', port=443): Max retries exceeded with url: /es/sala-de-prensa/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.minenergia.gov.co', port=443) at 0x7facfff71310>, 'Connection to www.minenergia.gov.co timed out. (connect timeout=15)'))
+  [✓] MinDeporte: 0 noticias
+  [✓] Procuraduría: 1 noticias
+  [✓] MinCiencias: 0 noticias
+  [✓] MinTIC: 0 noticias
+  [!] https://www.minenergia.gov.co/es/sala-de-prensa/ → HTTPSConnectionPool(host='www.minenergia.gov.co', port=443): Max retries exceeded with url: /es/sala-de-prensa/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.minenergia.gov.co', port=443) at 0x7f761ffe8cd0>, 'Connection to www.minenergia.gov.co timed out. (connect timeout=15)'))
   [✓] MinEnergía: 0 noticias
-  [!] https://www.mintrabajo.gov.co/web/guest/prensa/comunicados → HTTPSConnectionPool(host='www.mintrabajo.gov.co', port=443): Max retries exceeded with url: /web/guest/prensa/comunicados (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mintrabajo.gov.co', port=443) at 0x7facfff83310>, 'Connection to www.mintrabajo.gov.co timed out. (connect timeout=15)'))
+  [!] https://www.mintrabajo.gov.co/web/guest/prensa/comunicados → HTTPSConnectionPool(host='www.mintrabajo.gov.co', port=443): Max retries exceeded with url: /web/guest/prensa/comunicados (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mintrabajo.gov.co', port=443) at 0x7f76201a3e10>, 'Connection to www.mintrabajo.gov.co timed out. (connect timeout=15)'))
   [✓] MinTrabajo: 0 noticias
-  [!] https://www.fiscalia.gov.co/colombia/noticias/ → HTTPSConnectionPool(host='www.fiscalia.gov.co', port=443): Max retries exceeded with url: /colombia/noticias/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fiscalia.gov.co', port=443) at 0x7facec9a8310>, 'Connection to www.fiscalia.gov.co timed out. (connect timeout=15)'))
+  [!] https://mintransporte.gov.co/publicaciones/noticias/?tema=323 → HTTPSConnectionPool(host='mintransporte.gov.co', port=443): Max retries exceeded with url: /publicaciones/noticias/?tema=323 (Caused by ConnectTimeoutError(<HTTPSConnection(host='mintransporte.gov.co', port=443) at 0x7f761c633c10>, 'Connection to mintransporte.gov.co timed out. (connect timeout=15)'))
+  [✓] MinTransporte: 0 noticias
+  [!] https://www.fiscalia.gov.co/colombia/noticias/ → HTTPSConnectionPool(host='www.fiscalia.gov.co', port=443): Max retries exceeded with url: /colombia/noticias/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fiscalia.gov.co', port=443) at 0x7f760cf1a110>, 'Connection to www.fiscalia.gov.co timed out. (connect timeout=15)'))
   [✓] Fiscalía: 0 noticias
+  [!] SuperSalud → HTTPSConnectionPool(host='www.supersalud.gov.co', port=443): Max retries exceeded with url: /_api/search/query?querytext='ContentType:Noticia'&selectproperties='Title,Path,Write'&sortlist='Write:descending'&rowlimit=50 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.supersalud.gov.co', port=443) at 0x7f760c4cd5d0>, 'Connection to www.supersalud.gov.co timed out. (connect timeout=20)'))
+  [✓] SuperSalud: 0 noticias
 
 ────────────────────────────────────────────────────────────
   MEDIOS DE COMUNICACIÓN (17 scrapers)
 ────────────────────────────────────────────────────────────
-  [✓] ElColombiano: 30 noticias
-  [✓] Vanguardia: 17 noticias
   [✓] ElTiempo: 20 noticias
-  [i] Teleantioquia: renderizado por JS, sin resultados estáticos.
-  [✓] ElPaís: 30 noticias
-  [✓] Teleantioquia: 0 noticias
   [✓] ElEspectador: 10 noticias
+  [✓] ElPaís: 30 noticias
+  [i] Teleantioquia: renderizado por JS, sin resultados estáticos.
+  [✓] Vanguardia: 18 noticias
+  [✓] Teleantioquia: 0 noticias
   [✓] NoticiasRCN: 0 noticias
-  [✓] ElUniversal: 25 noticias
+  [✓] ElColombiano: 30 noticias
   [✓] CaracolRadio: 20 noticias
   [✓] LaFM: 20 noticias
+  [✓] ElUniversal: 25 noticias
+  [!] https://www.lasillavacia.com/wp-json/wp/v2/posts?categories=4932&per_p → 429 Client Error: Too Many Requests for url: https://www.lasillavacia.com/wp-json/wp/v2/posts?categories=4932&per_page=20&orderby=date&order=desc
+  [✓] LaSillaVacía: 0 noticias
   [✓] Semana: 30 noticias
   [✓] InfobaeColombia: 20 noticias
   [✓] CambioColombia: 15 noticias
   [✓] CanalTrece: 30 noticias
   [✓] BluRadio: 12 noticias
   [✓] NoticiasCaracol: 30 noticias
-  [✓] LaSillaVacía: 20 noticias
 
 ════════════════════════════════════════════════════════════
-  Entidades oficiales   :   12 noticias
-  Medios de comunicación:  329 noticias
-  TOTAL                 :  341 noticias
+  Entidades oficiales   :    1 noticias
+  Medios de comunicación:  310 noticias
+  TOTAL                 :  311 noticias
 ════════════════════════════════════════════════════════════
 
 Excel guardado en: /home/runner/work/UltimaHora/UltimaHora/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/public/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/docs/ultimahora.xlsx
 
-Fin — 24/06/2026 23:57:09
+Fin — 25/06/2026 01:13:38
