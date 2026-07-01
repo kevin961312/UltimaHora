@@ -1,4 +1,4 @@
-Iniciando scraping — 01/07/2026 20:11:50
+Iniciando scraping — 01/07/2026 21:03:45
 
 ────────────────────────────────────────────────────────────
   ENTIDADES OFICIALES (21 scrapers)
@@ -9,61 +9,61 @@ Iniciando scraping — 01/07/2026 20:11:50
   [i] Minsalud: SharePoint con contenido dinámico, sin resultados.
   [✓] MinDefensa: 0 noticias
   [✓] MinJusticia: 0 noticias
-  [✓] MinHacienda: 0 noticias
   [✓] MinSalud: 0 noticias
+  [✓] MinHacienda: 0 noticias
   [!] https://www.cancilleria.gov.co/newsroom/news → 403 Client Error: Forbidden for url: https://www.cancilleria.gov.co/newsroom/news
   [✓] Cancillería: 0 noticias
   [✓] MinIgualdad: 0 noticias
-  [✓] MinEducación: 0 noticias
-  [i] Mincultura: SharePoint con muro de autenticación, sin resultados.
   [✓] MinAmbiente: 0 noticias
+  [i] Mincultura: SharePoint con muro de autenticación, sin resultados.
+  [✓] MinEducación: 0 noticias
   [✓] MinCultura: 0 noticias
+  [✓] MinEnergía: 1 noticias
   [✓] MinVivienda: 0 noticias
   [✓] MinInterior: 0 noticias
-  [✓] MinEnergía: 1 noticias
   [✓] MinTIC: 0 noticias
-  [✓] MinDeporte: 0 noticias
   [✓] MinCiencias: 0 noticias
   [✓] SuperSalud: 1 noticias
   [✓] MinCIT: 0 noticias
+  [✓] MinDeporte: 0 noticias
   [✓] MinTransporte: 0 noticias
   [✓] Procuraduría: 3 noticias
-  [!] https://www.mintrabajo.gov.co/web/guest/prensa/comunicados → HTTPSConnectionPool(host='www.mintrabajo.gov.co', port=443): Max retries exceeded with url: /web/guest/prensa/comunicados (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mintrabajo.gov.co', port=443) at 0x7f6cc3f58350>, 'Connection to www.mintrabajo.gov.co timed out. (connect timeout=15)'))
+  [!] https://www.mintrabajo.gov.co/web/guest/prensa/comunicados → HTTPSConnectionPool(host='www.mintrabajo.gov.co', port=443): Max retries exceeded with url: /web/guest/prensa/comunicados (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mintrabajo.gov.co', port=443) at 0x7ff9f1ae7550>, 'Connection to www.mintrabajo.gov.co timed out. (connect timeout=15)'))
   [✓] MinTrabajo: 0 noticias
-  [!] https://www.fiscalia.gov.co/colombia/noticias/ → HTTPSConnectionPool(host='www.fiscalia.gov.co', port=443): Max retries exceeded with url: /colombia/noticias/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fiscalia.gov.co', port=443) at 0x7f6cb0e5fad0>, 'Connection to www.fiscalia.gov.co timed out. (connect timeout=15)'))
+  [!] https://www.fiscalia.gov.co/colombia/noticias/ → HTTPSConnectionPool(host='www.fiscalia.gov.co', port=443): Max retries exceeded with url: /colombia/noticias/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fiscalia.gov.co', port=443) at 0x7ff9d8d1c910>, 'Connection to www.fiscalia.gov.co timed out. (connect timeout=15)'))
   [✓] Fiscalía: 0 noticias
 
 ────────────────────────────────────────────────────────────
   MEDIOS DE COMUNICACIÓN (17 scrapers)
 ────────────────────────────────────────────────────────────
-  [✓] ElTiempo: 20 noticias
   [!] https://elpais.com/ultimas-noticias/ → 403 Client Error: Forbidden for url: https://elpais.com/ultimas-noticias/
   [✓] ElPaís: 0 noticias
-  [✓] Vanguardia: 17 noticias
+  [✓] ElTiempo: 20 noticias
+  [✓] Vanguardia: 18 noticias
   [i] Teleantioquia: renderizado por JS, sin resultados estáticos.
   [✓] ElEspectador: 10 noticias
   [✓] Teleantioquia: 0 noticias
-  [✓] NoticiasRCN: 0 noticias
   [✓] ElColombiano: 30 noticias
-  [✓] NoticiasCaracol: 30 noticias
   [✓] CaracolRadio: 20 noticias
-  [✓] ElUniversal: 25 noticias
-  [✓] LaFM: 20 noticias
-  [✓] LaSillaVacía: 20 noticias
+  [✓] NoticiasRCN: 0 noticias
+  [✓] NoticiasCaracol: 30 noticias
   [✓] BluRadio: 12 noticias
+  [✓] LaFM: 20 noticias
+  [✓] Semana: 30 noticias
+  [✓] LaSillaVacía: 20 noticias
   [✓] InfobaeColombia: 20 noticias
   [✓] CambioColombia: 16 noticias
-  [✓] Semana: 30 noticias
   [✓] CanalTrece: 30 noticias
+  [✓] ElUniversal: 25 noticias
 
 ════════════════════════════════════════════════════════════
   Entidades oficiales   :    5 noticias
-  Medios de comunicación:  300 noticias
-  TOTAL                 :  305 noticias
+  Medios de comunicación:  301 noticias
+  TOTAL                 :  306 noticias
 ════════════════════════════════════════════════════════════
 
 Excel guardado en: /home/runner/work/UltimaHora/UltimaHora/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/public/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/docs/ultimahora.xlsx
 
-Fin — 01/07/2026 20:12:08
+Fin — 01/07/2026 21:04:04
