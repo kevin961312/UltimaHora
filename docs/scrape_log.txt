@@ -1,4 +1,4 @@
-Iniciando scraping — 02/07/2026 08:28:42
+Iniciando scraping — 02/07/2026 11:11:46
 
 ────────────────────────────────────────────────────────────
   ENTIDADES OFICIALES (21 scrapers)
@@ -16,53 +16,54 @@ Iniciando scraping — 02/07/2026 08:28:42
   [✓] MinIgualdad: 0 noticias
   [✓] MinAmbiente: 0 noticias
   [i] Mincultura: SharePoint con muro de autenticación, sin resultados.
-  [✓] MinEducación: 0 noticias
-  [✓] MinCultura: 0 noticias
-  [✓] MinInterior: 0 noticias
-  [✓] MinEnergía: 0 noticias
   [✓] MinTIC: 0 noticias
+  [✓] MinCultura: 0 noticias
+  [✓] MinEnergía: 0 noticias
   [✓] MinVivienda: 1 noticias
+  [✓] MinInterior: 0 noticias
+  [✓] MinEducación: 0 noticias
   [✓] MinCiencias: 0 noticias
-  [✓] MinDeporte: 0 noticias
   [✓] MinCIT: 0 noticias
+  [✓] MinDeporte: 0 noticias
   [✓] MinTransporte: 0 noticias
-  [✓] Procuraduría: 1 noticias
   [✓] SuperSalud: 0 noticias
-  [!] https://www.mintrabajo.gov.co/web/guest/prensa/comunicados → HTTPSConnectionPool(host='www.mintrabajo.gov.co', port=443): Max retries exceeded with url: /web/guest/prensa/comunicados (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mintrabajo.gov.co', port=443) at 0x7f042dc77ad0>, 'Connection to www.mintrabajo.gov.co timed out. (connect timeout=15)'))
+  [✓] Procuraduría: 1 noticias
+  [!] https://www.mintrabajo.gov.co/web/guest/prensa/comunicados → HTTPSConnectionPool(host='www.mintrabajo.gov.co', port=443): Max retries exceeded with url: /web/guest/prensa/comunicados (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mintrabajo.gov.co', port=443) at 0x7f4c61d5a8d0>, 'Connection to www.mintrabajo.gov.co timed out. (connect timeout=15)'))
   [✓] MinTrabajo: 0 noticias
-  [!] https://www.fiscalia.gov.co/colombia/noticias/ → HTTPSConnectionPool(host='www.fiscalia.gov.co', port=443): Max retries exceeded with url: /colombia/noticias/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fiscalia.gov.co', port=443) at 0x7f04248f7210>, 'Connection to www.fiscalia.gov.co timed out. (connect timeout=15)'))
+  [!] https://www.fiscalia.gov.co/colombia/noticias/ → HTTPSConnectionPool(host='www.fiscalia.gov.co', port=443): Max retries exceeded with url: /colombia/noticias/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fiscalia.gov.co', port=443) at 0x7f4c61d96a50>, 'Connection to www.fiscalia.gov.co timed out. (connect timeout=15)'))
   [✓] Fiscalía: 0 noticias
 
 ────────────────────────────────────────────────────────────
   MEDIOS DE COMUNICACIÓN (17 scrapers)
 ────────────────────────────────────────────────────────────
-  [✓] ElEspectador: 8 noticias
-  [✓] ElColombiano: 30 noticias
-  [✓] ElTiempo: 20 noticias
-  [i] Teleantioquia: renderizado por JS, sin resultados estáticos.
+  [!] https://elpais.com/ultimas-noticias/ → 403 Client Error: Forbidden for url: https://elpais.com/ultimas-noticias/
+  [✓] ElPaís: 0 noticias
   [✓] Vanguardia: 16 noticias
+  [✓] ElColombiano: 30 noticias
+  [i] Teleantioquia: renderizado por JS, sin resultados estáticos.
+  [✓] ElTiempo: 20 noticias
   [✓] Teleantioquia: 0 noticias
-  [✓] ElPaís: 30 noticias
+  [✓] NoticiasCaracol: 0 noticias
   [✓] CaracolRadio: 20 noticias
-  [✓] ElUniversal: 25 noticias
   [✓] NoticiasRCN: 0 noticias
+  [✓] ElUniversal: 25 noticias
   [✓] LaFM: 20 noticias
-  [✓] LaSillaVacía: 20 noticias
+  [✓] ElEspectador: 10 noticias
   [✓] BluRadio: 12 noticias
+  [✓] LaSillaVacía: 20 noticias
+  [✓] Semana: 30 noticias
   [✓] InfobaeColombia: 20 noticias
   [✓] CambioColombia: 15 noticias
-  [✓] Semana: 30 noticias
   [✓] CanalTrece: 30 noticias
-  [✓] NoticiasCaracol: 0 noticias
 
 ════════════════════════════════════════════════════════════
   Entidades oficiales   :    2 noticias
-  Medios de comunicación:  296 noticias
-  TOTAL                 :  298 noticias
+  Medios de comunicación:  268 noticias
+  TOTAL                 :  270 noticias
 ════════════════════════════════════════════════════════════
 
 Excel guardado en: /home/runner/work/UltimaHora/UltimaHora/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/public/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/docs/ultimahora.xlsx
 
-Fin — 02/07/2026 08:29:02
+Fin — 02/07/2026 11:12:04
