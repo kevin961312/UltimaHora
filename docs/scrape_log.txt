@@ -1,4 +1,4 @@
-Iniciando scraping — 02/08/2026 16:01:52
+Iniciando scraping — 02/08/2026 17:32:19
 
 ────────────────────────────────────────────────────────────
   ENTIDADES OFICIALES (21 scrapers)
@@ -16,55 +16,56 @@ Iniciando scraping — 02/08/2026 16:01:52
   [✓] MinAmbiente: 0 noticias
   [✓] MinInterior: 1 noticias
   [i] Mincultura: SharePoint con muro de autenticación, sin resultados.
-  [✓] MinEnergía: 1 noticias
+  [✓] MinEnergía: 2 noticias
   [✓] MinCultura: 0 noticias
-  [✓] MinEducación: 4 noticias
-  [✓] MinCIT: 0 noticias
+  [✓] MinEducación: 6 noticias
   [✓] MinVivienda: 0 noticias
+  [✓] MinCIT: 0 noticias
   [✓] MinCiencias: 0 noticias
-  [✓] SuperSalud: 0 noticias
   [✓] MinTIC: 0 noticias
   [✓] MinDeporte: 0 noticias
+  [✓] SuperSalud: 0 noticias
   [✓] MinTransporte: 0 noticias
-  [✓] Procuraduría: 1 noticias
+  [✓] Procuraduría: 2 noticias
   [!] https://www.minigualdadyequidad.gov.co/noticias → HTTPSConnectionPool(host='www.minigualdadyequidad.gov.co', port=443): Read timed out. (read timeout=15)
   [✓] MinIgualdad: 0 noticias
   [!] https://www.mintrabajo.gov.co/web/guest/prensa/comunicados → HTTPSConnectionPool(host='www.mintrabajo.gov.co', port=443): Max retries exceeded with url: /web/guest/prensa/comunicados (Caused by NewConnectionError("HTTPSConnection(host='www.mintrabajo.gov.co', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))
   [✓] MinTrabajo: 0 noticias
-  [!] https://www.fiscalia.gov.co/colombia/noticias/ → HTTPSConnectionPool(host='www.fiscalia.gov.co', port=443): Max retries exceeded with url: /colombia/noticias/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fiscalia.gov.co', port=443) at 0x7f969caf17d0>, 'Connection to www.fiscalia.gov.co timed out. (connect timeout=15)'))
+  [!] https://www.fiscalia.gov.co/colombia/noticias/ → HTTPSConnectionPool(host='www.fiscalia.gov.co', port=443): Max retries exceeded with url: /colombia/noticias/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fiscalia.gov.co', port=443) at 0x7f7710f4ecd0>, 'Connection to www.fiscalia.gov.co timed out. (connect timeout=15)'))
   [✓] Fiscalía: 0 noticias
 
 ────────────────────────────────────────────────────────────
   MEDIOS DE COMUNICACIÓN (17 scrapers)
 ────────────────────────────────────────────────────────────
+  [!] https://elpais.com/ultimas-noticias/ → 403 Client Error: Forbidden for url: https://elpais.com/ultimas-noticias/
+  [✓] ElPaís: 0 noticias
   [✓] ElTiempo: 20 noticias
-  [✓] Vanguardia: 13 noticias
-  [✓] ElEspectador: 10 noticias
+  [✓] NoticiasCaracol: 8 noticias
   [i] Teleantioquia: renderizado por JS, sin resultados estáticos.
-  [✓] ElUniversal: 25 noticias
+  [✓] ElEspectador: 10 noticias
   [✓] Teleantioquia: 0 noticias
+  [✓] Vanguardia: 19 noticias
   [✓] NoticiasRCN: 0 noticias
   [✓] ElColombiano: 30 noticias
   [✓] CaracolRadio: 20 noticias
-  [✓] ElPaís: 30 noticias
+  [✓] BluRadio: 12 noticias
   [✓] LaFM: 20 noticias
   [!] https://www.lasillavacia.com/wp-json/wp/v2/posts?categories=4932&per_p → 429 Client Error: Too Many Requests for url: https://www.lasillavacia.com/wp-json/wp/v2/posts?categories=4932&per_page=20&orderby=date&order=desc
   [✓] LaSillaVacía: 0 noticias
   [✓] InfobaeColombia: 20 noticias
-  [✓] Semana: 30 noticias
   [✓] CambioColombia: 25 noticias
-  [✓] BluRadio: 12 noticias
+  [✓] Semana: 30 noticias
   [✓] CanalTrece: 30 noticias
-  [✓] NoticiasCaracol: 6 noticias
+  [✓] ElUniversal: 25 noticias
 
 ════════════════════════════════════════════════════════════
-  Entidades oficiales   :    7 noticias
-  Medios de comunicación:  291 noticias
-  TOTAL                 :  298 noticias
+  Entidades oficiales   :   11 noticias
+  Medios de comunicación:  269 noticias
+  TOTAL                 :  280 noticias
 ════════════════════════════════════════════════════════════
 
 Excel guardado en: /home/runner/work/UltimaHora/UltimaHora/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/public/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/docs/ultimahora.xlsx
 
-Fin — 02/08/2026 16:02:13
+Fin — 02/08/2026 17:32:39
