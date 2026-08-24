@@ -1,4 +1,4 @@
-Iniciando scraping — 24/08/2026 09:23:18
+Iniciando scraping — 24/08/2026 10:10:35
 
 ────────────────────────────────────────────────────────────
   ENTIDADES OFICIALES (21 scrapers)
@@ -8,21 +8,21 @@ Iniciando scraping — 24/08/2026 09:23:18
   [i] Mindefensa: requiere JavaScript, sin resultados.
   [i] Minsalud: SharePoint con contenido dinámico, sin resultados.
   [✓] MinJusticia: 0 noticias
-  [✓] MinDefensa: 0 noticias
   [✓] MinSalud: 0 noticias
+  [✓] MinDefensa: 0 noticias
   [✓] MinHacienda: 0 noticias
   [!] https://www.cancilleria.gov.co/newsroom/news → 403 Client Error: Forbidden for url: https://www.cancilleria.gov.co/newsroom/news
   [✓] Cancillería: 0 noticias
   [✓] MinIgualdad: 0 noticias
   [✓] MinAmbiente: 0 noticias
   [i] Mincultura: SharePoint con muro de autenticación, sin resultados.
-  [✓] MinEducación: 0 noticias
-  [✓] MinCultura: 0 noticias
   [✓] MinInterior: 0 noticias
+  [✓] MinCultura: 0 noticias
   [✓] MinEnergía: 0 noticias
   [✓] MinVivienda: 0 noticias
-  [✓] MinCiencias: 0 noticias
+  [✓] MinEducación: 0 noticias
   [✓] MinCIT: 0 noticias
+  [✓] MinCiencias: 0 noticias
   [✓] SuperSalud: 0 noticias
   [✓] MinDeporte: 0 noticias
   [✓] MinTransporte: 0 noticias
@@ -30,7 +30,7 @@ Iniciando scraping — 24/08/2026 09:23:18
   [✓] Procuraduría: 0 noticias
   [!] https://www.mintrabajo.gov.co/web/guest/prensa/comunicados → HTTPSConnectionPool(host='www.mintrabajo.gov.co', port=443): Max retries exceeded with url: /web/guest/prensa/comunicados (Caused by NewConnectionError("HTTPSConnection(host='www.mintrabajo.gov.co', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))
   [✓] MinTrabajo: 0 noticias
-  [!] https://www.fiscalia.gov.co/colombia/noticias/ → HTTPSConnectionPool(host='www.fiscalia.gov.co', port=443): Max retries exceeded with url: /colombia/noticias/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fiscalia.gov.co', port=443) at 0x7fc8d4d4e650>, 'Connection to www.fiscalia.gov.co timed out. (connect timeout=15)'))
+  [!] https://www.fiscalia.gov.co/colombia/noticias/ → HTTPSConnectionPool(host='www.fiscalia.gov.co', port=443): Max retries exceeded with url: /colombia/noticias/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fiscalia.gov.co', port=443) at 0x7ff7c0cd7a90>, 'Connection to www.fiscalia.gov.co timed out. (connect timeout=15)'))
   [✓] Fiscalía: 0 noticias
 
 ────────────────────────────────────────────────────────────
@@ -39,22 +39,22 @@ Iniciando scraping — 24/08/2026 09:23:18
   [!] https://elpais.com/ultimas-noticias/ → 403 Client Error: Forbidden for url: https://elpais.com/ultimas-noticias/
   [✓] ElPaís: 0 noticias
   [✓] ElTiempo: 20 noticias
-  [✓] ElColombiano: 30 noticias
-  [i] Teleantioquia: renderizado por JS, sin resultados estáticos.
   [✓] ElEspectador: 10 noticias
+  [i] Teleantioquia: renderizado por JS, sin resultados estáticos.
+  [✓] ElUniversal: 25 noticias
   [✓] Teleantioquia: 0 noticias
   [✓] Vanguardia: 18 noticias
-  [✓] CaracolRadio: 20 noticias
   [✓] NoticiasRCN: 0 noticias
-  [✓] ElUniversal: 25 noticias
+  [✓] ElColombiano: 30 noticias
+  [✓] CaracolRadio: 20 noticias
   [✓] LaFM: 20 noticias
-  [✓] InfobaeColombia: 20 noticias
+  [✓] LaSillaVacía: 20 noticias
   [✓] Semana: 30 noticias
-  [✓] CanalTrece: 30 noticias
+  [✓] InfobaeColombia: 20 noticias
   [✓] CambioColombia: 16 noticias
+  [✓] CanalTrece: 30 noticias
   [✓] BluRadio: 12 noticias
   [✓] NoticiasCaracol: 0 noticias
-  [✓] LaSillaVacía: 20 noticias
 
 ════════════════════════════════════════════════════════════
   Entidades oficiales   :    0 noticias
@@ -66,4 +66,4 @@ Excel guardado en: /home/runner/work/UltimaHora/UltimaHora/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/public/ultimahora.xlsx
 Copiado a:        /home/runner/work/UltimaHora/UltimaHora/docs/ultimahora.xlsx
 
-Fin — 24/08/2026 09:23:38
+Fin — 24/08/2026 10:10:55
